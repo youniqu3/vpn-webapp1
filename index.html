@@ -47,6 +47,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes borderGlow {
+            0%, 100% { border-color: #1e1a2f; box-shadow: 0 0 0 rgba(123,92,255,0); }
+            50% { border-color: #2d2350; box-shadow: 0 0 25px rgba(123,92,255,0.06); }
+        }
+
         h1 {
             text-align: center;
             font-size: 26px;
@@ -128,11 +133,6 @@
             opacity: 0.3;
             z-index: -2;
             animation: borderGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes borderGlow {
-            0%, 100% { border-color: #1e1a2f; box-shadow: 0 0 0 rgba(123,92,255,0); }
-            50% { border-color: #2d2350; box-shadow: 0 0 25px rgba(123,92,255,0.06); }
         }
 
         .plan h2 {
@@ -383,7 +383,7 @@
             padding: 28px 22px 22px;
             max-width: 400px;
             width: 100%;
-            max-height: 75vh;
+            max-height: 85vh;
             overflow-y: auto;
             color: #d4ccf0;
             animation: fadeUp 0.3s ease;
@@ -424,6 +424,56 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 14px;
             cursor: pointer;
+        }
+
+        /* Ключ */
+        .key-box {
+            background: #0a0a14;
+            border: 1px solid #1e1a2f;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 12px 0;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #9b85ff;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #1a1240;
+            border: none;
+            color: #9b85ff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 10px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .step {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .step-num {
+            width: 22px;
+            height: 22px;
+            background: #1a1240;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #9b85ff;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -492,17 +542,22 @@
         <div class="description">
             <h3>О сервисе</h3>
             <p>
-                Youniq VPN использует протокол VLESS с технологией XTLS-Reality — 
-                самый современный метод обхода блокировок. Ваш трафик полностью маскируется 
-                под обычный HTTPS, что делает его неотличимым от обычного интернет-сёрфинга.
-                Мы не ведём логи, не храним историю посещений и не передаём данные третьим лицам.
+                Youniq VPN использует протокол VLESS с технологией XTLS-Reality и 
+                раздельным туннелированием трафика. Российские приложения и сайты 
+                работают напрямую, без VPN — банки, госуслуги, отечественные сервисы 
+                не заметят подключения.
+            </p>
+            <p>
+                Зарубежные сервисы (YouTube, Discord, ChatGPT) автоматически 
+                направляются через защищённый туннель. Вам не нужно вручную 
+                включать и отключать VPN.
             </p>
         </div>
 
         <div class="links">
-            <a onclick="showModal('privacy')">Политика конфиденциальности</a>
-            <a onclick="showModal('terms')">Правила использования</a>
-            <a onclick="showModal('offer')">Публичная оферта</a>
+            <a onclick="showDoc('privacy')">Политика конфиденциальности</a>
+            <a onclick="showDoc('terms')">Правила использования</a>
+            <a onclick="showDoc('offer')">Публичная оферта</a>
         </div>
 
         <hr class="divider">
@@ -532,69 +587,128 @@
 
         btn.addEventListener('click', () => {
             if (!selectedPlan) return;
-            tg.sendData(JSON.stringify(selectedPlan));
-            tg.close();
+            
+            // Имитация оплаты (потом заменим на ЮKassa)
+            showKeyModal(selectedPlan);
         });
+
+        function showKeyModal(plan) {
+            const days = plan.plan === '1month' ? 30 : 90;
+            const key = generateKey();
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <h2>Доступ активирован</h2>
+                <p>Тариф: ${plan.plan === '1month' ? '1 месяц' : '3 месяца'} &middot; ${plan.price} RUB</p>
+                
+                <h3>Ваш ключ доступа</h3>
+                <div class="key-box">
+                    <button class="copy-btn" onclick="copyKey('${key}')">Копировать</button>
+                    ${key}
+                </div>
+                
+                <h3>Инструкция по настройке</h3>
+                
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div>
+                        <p><b>Скачайте приложение</b></p>
+                        <p>Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div>
+                        <p><b>Импортируйте ключ</b></p>
+                        <p>Скопируйте ключ выше и вставьте в приложение (обычно кнопка "+" или "Импорт")</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div>
+                        <p><b>Включите Split Tunneling</b></p>
+                        <p>V2RayNG: Настройки → Routing → Bypass LAN and mainland<br>Streisand: Настройки → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div>
+                        <p><b>Подключитесь</b></p>
+                        <p>Нажмите кнопку подключения. Российские приложения будут работать напрямую, зарубежные — через VPN.</p>
+                    </div>
+                </div>
+                
+                <p style="margin-top:14px;color:#524a6e;font-size:11px;">
+                    Срок действия: ${days} дней &middot; Устройств: 1 &middot; Трафик: безлимитный
+                </p>
+                
+                <button class="close-btn" onclick="tg.close()">Закрыть</button>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+
+        function generateKey() {
+            const uuid = crypto.randomUUID();
+            const server = "server.youniq-vpn.ru";
+            return `vless://${uuid}@${server}:443?type=tcp&security=reality&pbk=ПУБЛИЧНЫЙ_КЛЮЧ_СЕРВЕРА&fp=chrome&sni=www.yahoo.com&sid=abcdef&encryption=none#Youniq-VPN`;
+        }
+
+        function copyKey(key) {
+            navigator.clipboard.writeText(key).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = 'Скопировано!';
+                setTimeout(() => { btn.textContent = 'Копировать'; }, 2000);
+            });
+        }
 
         // Документы
         const docs = {
             privacy: `
                 <h2>Политика конфиденциальности</h2>
                 <p>Дата последнего обновления: 1 апреля 2026 года.</p>
-                
                 <h3>1. Какие данные мы собираем</h3>
-                <p>Youniq VPN собирает только ваш Telegram ID для идентификации активной подписки. Мы не запрашиваем имя, email, номер телефона или любые другие персональные данные.</p>
-                
+                <p>Youniq VPN собирает только ваш Telegram ID для идентификации активной подписки.</p>
                 <h3>2. Какие данные мы НЕ собираем</h3>
-                <p>Мы не ведём логи трафика, не сохраняем историю посещённых сайтов, не отслеживаем DNS-запросы, не записываем временные метки подключения, не храним IP-адреса после завершения сессии.</p>
-                
+                <p>Мы не ведём логи трафика, не сохраняем историю посещённых сайтов, не отслеживаем DNS-запросы.</p>
                 <h3>3. Передача данных третьим лицам</h3>
-                <p>Youniq VPN не передаёт, не продаёт и не обменивает данные пользователей третьим лицам ни при каких обстоятельствах.</p>
-                
+                <p>Youniq VPN не передаёт, не продаёт и не обменивает данные пользователей третьим лицам.</p>
                 <h3>4. Безопасность</h3>
-                <p>Все соединения шифруются с использованием протокола VLESS с технологией XTLS-Reality. Данные передаются в зашифрованном виде.</p>
-                
-                <h3>5. Изменения в политике</h3>
-                <p>Мы оставляем за собой право изменять данную политику. Актуальная версия всегда доступна в этом разделе.</p>
+                <p>Все соединения шифруются с использованием протокола VLESS с технологией XTLS-Reality.</p>
             `,
             terms: `
                 <h2>Правила использования</h2>
                 <p>Используя Youniq VPN, вы соглашаетесь со следующими правилами:</p>
-                
                 <h3>1. Запрещённая деятельность</h3>
-                <p>Запрещено использовать сервис для: спама и массовых рассылок, брутфорса и подбора паролей, DDoS-атак, распространения вредоносного ПО, фишинга и мошенничества, нарушения авторских прав, детской порнографии и любого незаконного контента.</p>
-                
+                <p>Запрещено: спам, брутфорс, DDoS-атаки, распространение вредоносного ПО, фишинг, мошенничество.</p>
                 <h3>2. Ответственность</h3>
-                <p>Пользователь несёт полную ответственность за свои действия при использовании сервиса. Youniq VPN не несёт ответственности за ущерб, причинённый в результате использования сервиса.</p>
-                
+                <p>Пользователь несёт полную ответственность за свои действия при использовании сервиса.</p>
                 <h3>3. Блокировка аккаунта</h3>
-                <p>При нарушении правил использования аккаунт блокируется без предупреждения и без возврата средств.</p>
-                
-                <h3>4. Изменение правил</h3>
-                <p>Мы оставляем за собой право изменять правила использования. Актуальная версия всегда доступна в этом разделе.</p>
+                <p>При нарушении правил аккаунт блокируется без возврата средств.</p>
             `,
             offer: `
                 <h2>Публичная оферта</h2>
-                <p>Настоящий документ является официальным предложением (офертой) на предоставление услуг доступа к VPN-серверу Youniq VPN.</p>
-                
+                <p>Настоящий документ является официальным предложением на предоставление услуг доступа к VPN-серверу Youniq VPN.</p>
                 <h3>1. Предмет оферты</h3>
-                <p>Исполнитель предоставляет Заказчику доступ к VPN-серверу на условиях выбранного тарифа. Услуга считается оказанной с момента активации подписки и выдачи ключа доступа.</p>
-                
+                <p>Исполнитель предоставляет Заказчику доступ к VPN-серверу на условиях выбранного тарифа.</p>
                 <h3>2. Оплата</h3>
-                <p>Оплата производится в рублях через платёжную систему ЮKassa. Цены указаны на странице тарифов и включают все комиссии.</p>
-                
+                <p>Оплата производится в рублях через платёжную систему ЮKassa.</p>
                 <h3>3. Возврат средств</h3>
-                <p>Возврат средств возможен в течение 48 часов с момента оплаты при условии отсутствия нарушений правил использования. Для возврата обратитесь в поддержку.</p>
-                
-                <h3>4. Срок действия</h3>
-                <p>Подписка активна в течение оплаченного периода с момента активации. По истечении срока доступ автоматически прекращается.</p>
-                
-                <h3>5. Контакты</h3>
-                <p>По всем вопросам обращайтесь в Telegram-бота поддержки: @youniq_vpn_bot</p>
+                <p>Возврат средств возможен в течение 48 часов с момента оплаты.</p>
+                <h3>4. Контакты</h3>
+                <p>По всем вопросам обращайтесь в Telegram-бота: @youniq_vpn_bot</p>
             `
         };
 
-        function showModal(type) {
+        function showDoc(type) {
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
             
