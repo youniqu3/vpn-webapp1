@@ -542,14 +542,14 @@
         <div class="description">
             <h3>О сервисе</h3>
             <p>
-                Youniq VPN использует протокол VLESS с технологией XTLS-Reality и 
-                раздельным туннелированием трафика. Российские приложения и сайты 
-                работают напрямую, без VPN — банки, госуслуги, отечественные сервисы 
+                Youniq VPN использует протокол VLESS с технологией XTLS-Reality и
+                раздельным туннелированием трафика. Российские приложения и сайты
+                работают напрямую, без VPN — банки, госуслуги, отечественные сервисы
                 не заметят подключения.
             </p>
             <p>
-                Зарубежные сервисы (YouTube, Discord, ChatGPT) автоматически 
-                направляются через защищённый туннель. Вам не нужно вручную 
+                Зарубежные сервисы (YouTube, Discord, ChatGPT) автоматически
+                направляются через защищённый туннель. Вам не нужно вручную
                 включать и отключать VPN.
             </p>
         </div>
@@ -558,6 +558,13 @@
             <a onclick="showDoc('privacy')">Политика конфиденциальности</a>
             <a onclick="showDoc('terms')">Правила использования</a>
             <a onclick="showDoc('offer')">Публичная оферта</a>
+        </div>
+
+        <div class="description" style="margin-top:20px;">
+            <h3>Реквизиты</h3>
+            <p>ИП / Самозанятый: ТВОЁ ФИО</p>
+            <p>ИНН: 123456789012</p>
+            <p>Ссылка на бота: https://t.me/youniq_vpn_bot</p>
         </div>
 
         <hr class="divider">
@@ -587,7 +594,7 @@
 
         btn.addEventListener('click', () => {
             if (!selectedPlan) return;
-            
+
             // Имитация оплаты (потом заменим на ЮKassa)
             showKeyModal(selectedPlan);
         });
@@ -595,24 +602,24 @@
         function showKeyModal(plan) {
             const days = plan.plan === '1month' ? 30 : 90;
             const key = generateKey();
-            
+
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
-            
+
             const modal = document.createElement('div');
             modal.className = 'modal';
             modal.innerHTML = `
                 <h2>Доступ активирован</h2>
                 <p>Тариф: ${plan.plan === '1month' ? '1 месяц' : '3 месяца'} &middot; ${plan.price} RUB</p>
-                
+
                 <h3>Ваш ключ доступа</h3>
                 <div class="key-box">
                     <button class="copy-btn" onclick="copyKey('${key}')">Копировать</button>
                     ${key}
                 </div>
-                
+
                 <h3>Инструкция по настройке</h3>
-                
+
                 <div class="step">
                     <div class="step-num">1</div>
                     <div>
@@ -620,7 +627,7 @@
                         <p>Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox</p>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <div class="step-num">2</div>
                     <div>
@@ -628,7 +635,7 @@
                         <p>Скопируйте ключ выше и вставьте в приложение (обычно кнопка "+" или "Импорт")</p>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <div class="step-num">3</div>
                     <div>
@@ -636,7 +643,7 @@
                         <p>V2RayNG: Настройки → Routing → Bypass LAN and mainland<br>Streisand: Настройки → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia</p>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <div class="step-num">4</div>
                     <div>
@@ -644,14 +651,14 @@
                         <p>Нажмите кнопку подключения. Российские приложения будут работать напрямую, зарубежные — через VPN.</p>
                     </div>
                 </div>
-                
+
                 <p style="margin-top:14px;color:#524a6e;font-size:11px;">
                     Срок действия: ${days} дней &middot; Устройств: 1 &middot; Трафик: безлимитный
                 </p>
-                
+
                 <button class="close-btn" onclick="tg.close()">Закрыть</button>
             `;
-            
+
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
         }
@@ -711,18 +718,19 @@
         function showDoc(type) {
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
-            
+
             const modal = document.createElement('div');
             modal.className = 'modal';
             modal.innerHTML = docs[type] + '<button class="close-btn" onclick="this.closest(\'.modal-overlay\').remove()">Закрыть</button>';
-            
+
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
-            
+
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) overlay.remove();
             });
         }
     </script>
 </body>
+</html>
 </html>
