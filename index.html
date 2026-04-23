@@ -242,7 +242,6 @@
             border: 1px solid #13102a;
         }
 
-        /* Блок преимуществ */
         .advantages {
             margin-top: 32px;
             display: grid;
@@ -298,7 +297,6 @@
             line-height: 1.4;
         }
 
-        /* Описание */
         .description {
             margin-top: 28px;
             background: #0c0c16;
@@ -322,7 +320,6 @@
             font-weight: 500;
         }
 
-        /* Ссылки */
         .links {
             margin-top: 12px;
             display: flex;
@@ -336,6 +333,7 @@
             font-size: 11px;
             font-weight: 600;
             text-decoration: none;
+            cursor: pointer;
             transition: color 0.3s;
             border-bottom: 1px solid transparent;
         }
@@ -358,6 +356,74 @@
             text-align: center;
             font-weight: 500;
             animation: fadeUp 0.6s ease-out 0.55s both;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.88);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: #0f0f1d;
+            border: 1px solid #1e1a2f;
+            border-radius: 20px;
+            padding: 28px 22px 22px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 75vh;
+            overflow-y: auto;
+            color: #d4ccf0;
+            animation: fadeUp 0.3s ease;
+        }
+
+        .modal h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: -0.3px;
+            color: #b49dff;
+        }
+
+        .modal p {
+            font-size: 12px;
+            color: #8b80a8;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .modal h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 16px 0 6px;
+            color: #c4b8ff;
+        }
+
+        .modal .close-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            background: #7b5cff;
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -392,7 +458,6 @@
 
         <button id="payBtn" disabled>Выберите тариф</button>
 
-        <!-- Преимущества -->
         <div class="advantages">
             <div class="advantage">
                 <div class="icon">
@@ -424,22 +489,20 @@
             </div>
         </div>
 
-        <!-- Описание -->
         <div class="description">
             <h3>О сервисе</h3>
             <p>
-                Youniq VPN использует протокол VLESS с технологией XTLS-Reality —
-                самый современный метод обхода блокировок. Ваш трафик полностью маскируется
+                Youniq VPN использует протокол VLESS с технологией XTLS-Reality — 
+                самый современный метод обхода блокировок. Ваш трафик полностью маскируется 
                 под обычный HTTPS, что делает его неотличимым от обычного интернет-сёрфинга.
                 Мы не ведём логи, не храним историю посещений и не передаём данные третьим лицам.
             </p>
         </div>
 
-        <!-- Ссылки -->
         <div class="links">
-            <a href="#" onclick="tg.openLink('https://telegra.ph/Politika-konfidencialnosti-04-23'); return false;">Политика конфиденциальности</a>
-            <a href="#" onclick="tg.openLink('https://telegra.ph/Pravila-ispolzovaniya-04-23'); return false;">Правила использования</a>
-            <a href="#" onclick="tg.openLink('https://telegra.ph/Publichnaya-oferta-04-23'); return false;">Публичная оферта</a>
+            <a onclick="showModal('privacy')">Политика конфиденциальности</a>
+            <a onclick="showModal('terms')">Правила использования</a>
+            <a onclick="showModal('offer')">Публичная оферта</a>
         </div>
 
         <hr class="divider">
@@ -472,6 +535,80 @@
             tg.sendData(JSON.stringify(selectedPlan));
             tg.close();
         });
+
+        // Документы
+        const docs = {
+            privacy: `
+                <h2>Политика конфиденциальности</h2>
+                <p>Дата последнего обновления: 1 апреля 2026 года.</p>
+                
+                <h3>1. Какие данные мы собираем</h3>
+                <p>Youniq VPN собирает только ваш Telegram ID для идентификации активной подписки. Мы не запрашиваем имя, email, номер телефона или любые другие персональные данные.</p>
+                
+                <h3>2. Какие данные мы НЕ собираем</h3>
+                <p>Мы не ведём логи трафика, не сохраняем историю посещённых сайтов, не отслеживаем DNS-запросы, не записываем временные метки подключения, не храним IP-адреса после завершения сессии.</p>
+                
+                <h3>3. Передача данных третьим лицам</h3>
+                <p>Youniq VPN не передаёт, не продаёт и не обменивает данные пользователей третьим лицам ни при каких обстоятельствах.</p>
+                
+                <h3>4. Безопасность</h3>
+                <p>Все соединения шифруются с использованием протокола VLESS с технологией XTLS-Reality. Данные передаются в зашифрованном виде.</p>
+                
+                <h3>5. Изменения в политике</h3>
+                <p>Мы оставляем за собой право изменять данную политику. Актуальная версия всегда доступна в этом разделе.</p>
+            `,
+            terms: `
+                <h2>Правила использования</h2>
+                <p>Используя Youniq VPN, вы соглашаетесь со следующими правилами:</p>
+                
+                <h3>1. Запрещённая деятельность</h3>
+                <p>Запрещено использовать сервис для: спама и массовых рассылок, брутфорса и подбора паролей, DDoS-атак, распространения вредоносного ПО, фишинга и мошенничества, нарушения авторских прав, детской порнографии и любого незаконного контента.</p>
+                
+                <h3>2. Ответственность</h3>
+                <p>Пользователь несёт полную ответственность за свои действия при использовании сервиса. Youniq VPN не несёт ответственности за ущерб, причинённый в результате использования сервиса.</p>
+                
+                <h3>3. Блокировка аккаунта</h3>
+                <p>При нарушении правил использования аккаунт блокируется без предупреждения и без возврата средств.</p>
+                
+                <h3>4. Изменение правил</h3>
+                <p>Мы оставляем за собой право изменять правила использования. Актуальная версия всегда доступна в этом разделе.</p>
+            `,
+            offer: `
+                <h2>Публичная оферта</h2>
+                <p>Настоящий документ является официальным предложением (офертой) на предоставление услуг доступа к VPN-серверу Youniq VPN.</p>
+                
+                <h3>1. Предмет оферты</h3>
+                <p>Исполнитель предоставляет Заказчику доступ к VPN-серверу на условиях выбранного тарифа. Услуга считается оказанной с момента активации подписки и выдачи ключа доступа.</p>
+                
+                <h3>2. Оплата</h3>
+                <p>Оплата производится в рублях через платёжную систему ЮKassa. Цены указаны на странице тарифов и включают все комиссии.</p>
+                
+                <h3>3. Возврат средств</h3>
+                <p>Возврат средств возможен в течение 48 часов с момента оплаты при условии отсутствия нарушений правил использования. Для возврата обратитесь в поддержку.</p>
+                
+                <h3>4. Срок действия</h3>
+                <p>Подписка активна в течение оплаченного периода с момента активации. По истечении срока доступ автоматически прекращается.</p>
+                
+                <h3>5. Контакты</h3>
+                <p>По всем вопросам обращайтесь в Telegram-бота поддержки: @youniq_vpn_bot</p>
+            `
+        };
+
+        function showModal(type) {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = docs[type] + '<button class="close-btn" onclick="this.closest(\'.modal-overlay\').remove()">Закрыть</button>';
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) overlay.remove();
+            });
+        }
     </script>
 </body>
 </html>
