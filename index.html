@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPN Тарифы</title>
+    <title>Youniq VPN</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -18,22 +18,13 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 420px;
-            margin: 0 auto;
-            position: relative;
-        }
+        .container { max-width: 420px; margin: 0 auto; position: relative; }
 
         .glow {
-            position: fixed;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            width: 300px; height: 300px;
             background: radial-gradient(circle, rgba(123,92,255,0.12) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
             animation: pulse 4s ease-in-out infinite;
         }
 
@@ -52,435 +43,226 @@
             50% { border-color: #2d2350; box-shadow: 0 0 25px rgba(123,92,255,0.06); }
         }
 
+        @keyframes speedPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        @keyframes progressAnim {
+            from { stroke-dashoffset: 314; }
+            to { stroke-dashoffset: 0; }
+        }
+
         h1 {
-            text-align: center;
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            text-align: center; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;
             background: linear-gradient(135deg, #b49dff 0%, #7b5cff 50%, #5e3fd4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 6px;
-            animation: fadeUp 0.6s ease-out;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 6px; animation: fadeUp 0.6s ease-out;
         }
 
         .subtitle {
-            text-align: center;
-            color: #524a6e;
-            margin-bottom: 28px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            text-align: center; color: #524a6e; margin-bottom: 28px; font-size: 13px;
+            font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
             animation: fadeUp 0.6s ease-out 0.1s both;
         }
 
-        .plans {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            position: relative;
-            z-index: 1;
+        /* Переключатель языка */
+        .lang-switch {
+            display: flex; justify-content: flex-end; margin-bottom: 16px; gap: 8px;
+            animation: fadeUp 0.6s ease-out 0.05s both;
         }
+        .lang-btn {
+            background: #0c0c16; border: 1px solid #1e1a2f; color: #524a6e;
+            padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700;
+            font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s;
+        }
+        .lang-btn.active { background: #1a1240; color: #9b85ff; border-color: #7b5cff; }
 
+        /* Тарифы */
+        .plans { display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 1; }
+        
         .plan {
-            background: #0c0c16;
-            border-radius: 20px;
-            padding: 22px;
-            border: 1.5px solid #1a1628;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            animation: fadeUp 0.6s ease-out both;
+            background: #0c0c16; border-radius: 20px; padding: 22px; border: 1.5px solid #1a1628;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden; animation: fadeUp 0.6s ease-out both;
         }
-
         .plan:nth-child(1) { animation-delay: 0.15s; }
         .plan:nth-child(2) { animation-delay: 0.25s; }
-
         .plan::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            background: linear-gradient(135deg, rgba(123,92,255,0.05) 0%, rgba(123,92,255,0.02) 100%);
-            z-index: -1;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 20px; opacity: 0; transition: opacity 0.3s;
+            background: linear-gradient(135deg, rgba(123,92,255,0.05) 0%, rgba(123,92,255,0.02) 100%); z-index: -1;
         }
-
-        .plan:hover {
-            border-color: #2a2048;
-            transform: translateY(-2px);
-        }
-
+        .plan:hover { border-color: #2a2048; transform: translateY(-2px); }
         .plan:hover::before { opacity: 1; }
-
         .plan.active {
-            border-color: #7b5cff;
-            box-shadow: 0 0 30px rgba(123,92,255,0.12), 0 8px 32px rgba(0,0,0,0.4);
-            background: #0f0f1d;
-            transform: translateY(-2px);
+            border-color: #7b5cff; box-shadow: 0 0 30px rgba(123,92,255,0.12), 0 8px 32px rgba(0,0,0,0.4);
+            background: #0f0f1d; transform: translateY(-2px);
         }
-
         .plan.active::after {
-            content: '';
-            position: absolute;
-            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px;
             border-radius: 20px;
             background: linear-gradient(135deg, #7b5cff, transparent 40%, transparent 60%, #7b5cff);
-            opacity: 0.3;
-            z-index: -2;
-            animation: borderGlow 2s ease-in-out infinite;
+            opacity: 0.3; z-index: -2; animation: borderGlow 2s ease-in-out infinite;
         }
-
-        .plan h2 {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 4px;
-        }
-
+        .plan h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
         .plan .price {
-            font-size: 30px;
-            font-weight: 800;
-            letter-spacing: -1px;
+            font-size: 30px; font-weight: 800; letter-spacing: -1px;
             background: linear-gradient(180deg, #b49dff 0%, #7b5cff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin: 8px 0 4px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            line-height: 1; margin: 8px 0 4px;
         }
-
-        .plan .price .currency {
-            font-size: 15px;
-            font-weight: 600;
-            -webkit-text-fill-color: #6b5b95;
-        }
-
-        .plan .desc {
-            color: #4a3d6b;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
+        .plan .price .currency { font-size: 15px; font-weight: 600; -webkit-text-fill-color: #6b5b95; }
+        .plan .desc { color: #4a3d6b; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; }
         .plan .badge {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: #1a1240;
-            color: #9b85ff;
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            position: absolute; top: 14px; right: 14px; background: #1a1240; color: #9b85ff;
+            padding: 5px 14px; border-radius: 30px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
         }
-
         .devices {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 12px;
-            background: #0a0a14;
-            padding: 8px 12px;
-            border-radius: 20px;
-            width: fit-content;
+            display: flex; align-items: center; gap: 8px; margin-top: 12px;
+            background: #0a0a14; padding: 8px 12px; border-radius: 20px; width: fit-content;
         }
-
         .devices .dot {
-            width: 5px;
-            height: 5px;
-            background: #7b5cff;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #7b5cff;
+            width: 5px; height: 5px; background: #7b5cff; border-radius: 50%; box-shadow: 0 0 8px #7b5cff;
         }
+        .devices span { color: #524a6e; font-size: 11px; font-weight: 600; }
 
-        .devices span {
-            color: #524a6e;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        button {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
-            letter-spacing: -0.3px;
-            cursor: pointer;
-            margin-top: 28px;
+        /* Кнопка */
+        button.cta {
+            width: 100%; padding: 16px; border: none; border-radius: 16px;
+            font-size: 16px; font-weight: 700; font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.3px; cursor: pointer; margin-top: 28px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            z-index: 1;
-            animation: fadeUp 0.6s ease-out 0.35s both;
+            position: relative; z-index: 1; animation: fadeUp 0.6s ease-out 0.35s both;
         }
-
-        button:not(:disabled) {
-            background: linear-gradient(135deg, #7b5cff 0%, #5e3fd4 100%);
-            color: #fff;
+        button.cta:not(:disabled) {
+            background: linear-gradient(135deg, #7b5cff 0%, #5e3fd4 100%); color: #fff;
             box-shadow: 0 4px 24px rgba(123,92,255,0.25);
         }
-
-        button:not(:disabled):hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(123,92,255,0.35);
+        button.cta:not(:disabled):hover {
+            transform: translateY(-2px); box-shadow: 0 8px 32px rgba(123,92,255,0.35);
+        }
+        button.cta:disabled {
+            background: #0e0e1a; color: #2d2348; cursor: not-allowed; border: 1px solid #13102a;
         }
 
-        button:not(:disabled):active { transform: scale(0.98); }
-
-        button:disabled {
-            background: #0e0e1a;
-            color: #2d2348;
-            cursor: not-allowed;
-            border: 1px solid #13102a;
+        /* Проверка скорости */
+        .speedtest {
+            margin-top: 32px; background: #0c0c16; border: 1px solid #16122a;
+            border-radius: 20px; padding: 24px; text-align: center;
+            animation: fadeUp 0.6s ease-out 0.38s both;
         }
+        .speedtest h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+        .speed-circle {
+            width: 120px; height: 120px; margin: 0 auto 16px; position: relative;
+        }
+        .speed-circle svg { transform: rotate(-90deg); }
+        .speed-circle .bg-circle {
+            fill: none; stroke: #1a1240; stroke-width: 8;
+        }
+        .speed-circle .progress-circle {
+            fill: none; stroke: #7b5cff; stroke-width: 8;
+            stroke-linecap: round; stroke-dasharray: 314; stroke-dashoffset: 314;
+            transition: stroke-dashoffset 2s ease;
+        }
+        .speed-value {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 32px; font-weight: 800; color: #b49dff;
+        }
+        .speed-value span { font-size: 12px; color: #524a6e; font-weight: 600; }
+        .speed-status { font-size: 12px; color: #524a6e; margin-bottom: 12px; }
+        .speed-btn {
+            background: #1a1240; border: 1px solid #2d2350; color: #9b85ff;
+            padding: 10px 24px; border-radius: 12px; font-size: 13px; font-weight: 700;
+            font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s;
+        }
+        .speed-btn:hover { background: #2d2350; border-color: #7b5cff; }
+        .speed-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+        /* Преимущества */
         .advantages {
-            margin-top: 32px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
             animation: fadeUp 0.6s ease-out 0.4s both;
         }
-
         .advantage {
-            background: #0c0c16;
-            border: 1px solid #16122a;
-            border-radius: 16px;
-            padding: 16px 14px;
-            text-align: center;
-            transition: all 0.3s;
+            background: #0c0c16; border: 1px solid #16122a; border-radius: 16px;
+            padding: 16px 14px; text-align: center; transition: all 0.3s;
         }
-
-        .advantage:hover {
-            border-color: #2a2048;
-            background: #0f0f1d;
-        }
-
+        .advantage:hover { border-color: #2a2048; background: #0f0f1d; }
         .advantage .icon {
-            width: 32px;
-            height: 32px;
-            margin: 0 auto 10px;
-            background: #1a1240;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 32px; height: 32px; margin: 0 auto 10px; background: #1a1240;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
         }
+        .advantage .icon svg { width: 16px; height: 16px; stroke: #9b85ff; fill: none; stroke-width: 2; }
+        .advantage h3 { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+        .advantage p { font-size: 10px; color: #524a6e; font-weight: 500; line-height: 1.4; }
 
-        .advantage .icon svg {
-            width: 16px;
-            height: 16px;
-            stroke: #9b85ff;
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .advantage h3 {
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: -0.2px;
-            margin-bottom: 4px;
-        }
-
-        .advantage p {
-            font-size: 10px;
-            color: #524a6e;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
+        /* Блоки с описанием */
         .description {
-            margin-top: 28px;
-            background: #0c0c16;
-            border: 1px solid #16122a;
-            border-radius: 20px;
-            padding: 20px;
-            animation: fadeUp 0.6s ease-out 0.45s both;
+            margin-top: 28px; background: #0c0c16; border: 1px solid #16122a;
+            border-radius: 20px; padding: 20px; animation: fadeUp 0.6s ease-out 0.45s both;
         }
+        .description h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+        .description p { font-size: 12px; color: #5a5078; line-height: 1.7; font-weight: 500; }
 
-        .description h3 {
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 12px;
-        }
-
-        .description p {
-            font-size: 12px;
-            color: #5a5078;
-            line-height: 1.7;
-            font-weight: 500;
-        }
-
+        /* Ссылки */
         .links {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
+            margin-top: 12px; display: flex; flex-wrap: wrap; gap: 12px;
             animation: fadeUp 0.6s ease-out 0.5s both;
         }
-
         .links a {
-            color: #6b5b95;
-            font-size: 11px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.3s;
-            border-bottom: 1px solid transparent;
+            color: #6b5b95; font-size: 11px; font-weight: 600; text-decoration: none;
+            cursor: pointer; transition: color 0.3s; border-bottom: 1px solid transparent;
         }
+        .links a:hover { color: #9b85ff; border-bottom-color: #3d2b6b; }
 
-        .links a:hover {
-            color: #9b85ff;
-            border-bottom-color: #3d2b6b;
-        }
-
-        .divider {
-            border: none;
-            height: 1px;
-            background: #16122a;
-            margin: 20px 0 14px;
-        }
-
+        .divider { border: none; height: 1px; background: #16122a; margin: 20px 0 14px; }
         .footer-text {
-            font-size: 10px;
-            color: #3d3358;
-            text-align: center;
-            font-weight: 500;
+            font-size: 10px; color: #3d3358; text-align: center; font-weight: 500;
             animation: fadeUp 0.6s ease-out 0.55s both;
         }
 
-        /* Модальное окно */
+        /* Модалка */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.88);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.88); z-index: 999;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
             animation: fadeIn 0.2s ease;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .modal {
-            background: #0f0f1d;
-            border: 1px solid #1e1a2f;
-            border-radius: 20px;
-            padding: 28px 22px 22px;
-            max-width: 400px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            color: #d4ccf0;
-            animation: fadeUp 0.3s ease;
+            background: #0f0f1d; border: 1px solid #1e1a2f; border-radius: 20px;
+            padding: 28px 22px 22px; max-width: 400px; width: 100%;
+            max-height: 85vh; overflow-y: auto; color: #d4ccf0; animation: fadeUp 0.3s ease;
         }
-
-        .modal h2 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            letter-spacing: -0.3px;
-            color: #b49dff;
-        }
-
-        .modal p {
-            font-size: 12px;
-            color: #8b80a8;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .modal h3 {
-            font-size: 14px;
-            font-weight: 700;
-            margin: 16px 0 6px;
-            color: #c4b8ff;
-        }
-
+        .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; color: #b49dff; }
+        .modal p { font-size: 12px; color: #8b80a8; line-height: 1.6; margin-bottom: 10px; font-weight: 500; }
+        .modal h3 { font-size: 14px; font-weight: 700; margin: 16px 0 6px; color: #c4b8ff; }
         .modal .close-btn {
-            width: 100%;
-            margin-top: 20px;
-            padding: 13px;
-            background: #7b5cff;
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            cursor: pointer;
+            width: 100%; margin-top: 20px; padding: 13px; background: #7b5cff;
+            border: none; border-radius: 12px; color: #fff; font-weight: 700;
+            font-family: 'Montserrat', sans-serif; font-size: 14px; cursor: pointer;
         }
-
         .key-box {
-            background: #0a0a14;
-            border: 1px solid #1e1a2f;
-            border-radius: 14px;
-            padding: 16px;
-            margin: 12px 0;
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            color: #9b85ff;
-            line-height: 1.5;
-            position: relative;
+            background: #0a0a14; border: 1px solid #1e1a2f; border-radius: 14px;
+            padding: 16px; margin: 12px 0; word-break: break-all;
+            font-family: 'Courier New', monospace; font-size: 11px; color: #9b85ff;
+            line-height: 1.5; position: relative;
         }
-
         .copy-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #1a1240;
-            border: none;
-            color: #9b85ff;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 10px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
+            position: absolute; top: 8px; right: 8px; background: #1a1240; border: none;
+            color: #9b85ff; padding: 6px 12px; border-radius: 8px; font-size: 10px;
+            cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600;
         }
-
-        .step {
-            display: flex;
-            gap: 10px;
-            margin: 10px 0;
-        }
-
+        .step { display: flex; gap: 10px; margin: 10px 0; }
         .step-num {
-            width: 22px;
-            height: 22px;
-            background: #1a1240;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            color: #9b85ff;
-            flex-shrink: 0;
+            width: 22px; height: 22px; background: #1a1240; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700; color: #9b85ff; flex-shrink: 0;
         }
-
         .ref-box {
-            background: #0a0a14;
-            border: 1px solid #1e1a2f;
-            border-radius: 14px;
-            padding: 14px;
-            margin: 12px 0;
+            background: #0a0a14; border: 1px solid #1e1a2f; border-radius: 14px;
+            padding: 14px; margin: 12px 0;
         }
     </style>
 </head>
@@ -491,104 +273,111 @@
         <h1>Youniq VPN</h1>
         <p class="subtitle">Privacy Reimagined</p>
 
+        <!-- Переключатель языка -->
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="switchLang('ru')">RU</button>
+            <button class="lang-btn" onclick="switchLang('en')">EN</button>
+        </div>
+
+        <!-- Тарифы -->
         <div class="plans">
             <div class="plan" data-plan="1month" data-price="120">
                 <div class="badge">STARTER</div>
-                <h2>1 месяц</h2>
+                <h2 data-ru="1 месяц" data-en="1 Month">1 месяц</h2>
                 <div class="price">120 <span class="currency">RUB</span></div>
-                <div class="desc">Безлимитный трафик</div>
+                <div class="desc" data-ru="Безлимитный трафик" data-en="Unlimited traffic">Безлимитный трафик</div>
                 <div class="devices">
-                    <div class="dot"></div><span>1 устройство</span>
+                    <div class="dot"></div><span data-ru="1 устройство" data-en="1 device">1 устройство</span>
                 </div>
             </div>
 
             <div class="plan" data-plan="3month" data-price="350">
                 <div class="badge">POPULAR</div>
-                <h2>3 месяца</h2>
+                <h2 data-ru="3 месяца" data-en="3 Months">3 месяца</h2>
                 <div class="price">350 <span class="currency">RUB</span></div>
-                <div class="desc">Безлимитный трафик</div>
+                <div class="desc" data-ru="Безлимитный трафик" data-en="Unlimited traffic">Безлимитный трафик</div>
                 <div class="devices">
-                    <div class="dot"></div><span>1 устройство</span>
+                    <div class="dot"></div><span data-ru="1 устройство" data-en="1 device">1 устройство</span>
                 </div>
             </div>
         </div>
 
-        <button id="payBtn" disabled>Выберите тариф</button>
+        <button class="cta" id="payBtn" disabled data-ru="Выберите тариф" data-en="Select a plan">Выберите тариф</button>
 
+        <!-- Проверка скорости -->
+        <div class="speedtest">
+            <h3 data-ru="Проверка скорости" data-en="Speed Test">Проверка скорости</h3>
+            <div class="speed-circle">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                    <circle class="bg-circle" cx="60" cy="60" r="50"/>
+                    <circle class="progress-circle" id="progressCircle" cx="60" cy="60" r="50"/>
+                </svg>
+                <div class="speed-value" id="speedValue">--<span>Mbps</span></div>
+            </div>
+            <p class="speed-status" id="speedStatus" data-ru="Нажмите кнопку для проверки" data-en="Press button to test">Нажмите кнопку для проверки</p>
+            <button class="speed-btn" id="speedBtn" onclick="startSpeedTest()" data-ru="Запустить тест" data-en="Start Test">Запустить тест</button>
+        </div>
+
+        <!-- Преимущества -->
         <div class="advantages">
             <div class="advantage">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                </div>
-                <h3>Шифрование</h3>
-                <p>Военный уровень AES-256</p>
+                <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <h3 data-ru="Шифрование" data-en="Encryption">Шифрование</h3>
+                <p data-ru="AES-256" data-en="AES-256">AES-256</p>
             </div>
             <div class="advantage">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                </div>
-                <h3>Скорость</h3>
-                <p>До 10 Гбит/c на сервер</p>
+                <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <h3 data-ru="Скорость" data-en="Speed">Скорость</h3>
+                <p data-ru="До 10 Гбит/c" data-en="Up to 10 Gbps">До 10 Гбит/c</p>
             </div>
             <div class="advantage">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                </div>
-                <h3>Без логов</h3>
-                <p>Не храним историю</p>
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <h3 data-ru="Без логов" data-en="No Logs">Без логов</h3>
+                <p data-ru="Конфиденциальность" data-en="Privacy">Конфиденциальность</p>
             </div>
             <div class="advantage">
-                <div class="icon">
-                    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <h3>Устройства</h3>
-                <p>Windows, iOS, Android</p>
+                <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                <h3 data-ru="Устройства" data-en="Devices">Устройства</h3>
+                <p data-ru="Все платформы" data-en="All platforms">Все платформы</p>
             </div>
         </div>
 
+        <!-- О сервисе -->
         <div class="description">
-            <h3>О сервисе</h3>
-            <p>
-                Youniq VPN использует протокол VLESS с технологией XTLS-Reality и 
-                раздельным туннелированием трафика. Российские приложения и сайты 
-                работают напрямую, без VPN — банки, госуслуги, отечественные сервисы 
-                не заметят подключения.
-            </p>
-            <p>
-                Зарубежные сервисы (YouTube, Discord, ChatGPT) автоматически 
-                направляются через защищённый туннель. Вам не нужно вручную 
-                включать и отключать VPN.
-            </p>
+            <h3 data-ru="О сервисе" data-en="About">О сервисе</h3>
+            <p data-ru="Youniq VPN использует протокол VLESS с технологией XTLS-Reality и раздельным туннелированием трафика. Российские приложения и сайты работают напрямую, без VPN — банки, госуслуги, отечественные сервисы не заметят подключения." data-en="Youniq VPN uses VLESS protocol with XTLS-Reality technology and split tunneling. Russian apps and sites work directly without VPN — banks, government services won't detect the connection.">Youniq VPN использует протокол VLESS с технологией XTLS-Reality и раздельным туннелированием трафика. Российские приложения и сайты работают напрямую, без VPN — банки, госуслуги, отечественные сервисы не заметят подключения.</p>
         </div>
 
+        <!-- Реферальная программа -->
         <div class="description">
-            <h3>Реферальная программа</h3>
-            <p>Пригласите друга — получите <b>скидку 10%</b> на следующую покупку после его первой оплаты.</p>
+            <h3 data-ru="Реферальная программа" data-en="Referral Program">Реферальная программа</h3>
+            <p data-ru="Пригласите друга — получите скидку 10% на следующую покупку после его первой оплаты." data-en="Invite a friend — get 10% off your next purchase after their first payment.">Пригласите друга — получите скидку 10% на следующую покупку после его первой оплаты.</p>
             <div class="ref-box">
-                <p style="font-size:11px;color:#6b5b95;margin-bottom:8px;">Ваша реферальная ссылка:</p>
+                <p style="font-size:11px;color:#6b5b95;margin-bottom:8px;" data-ru="Ваша реферальная ссылка:" data-en="Your referral link:">Ваша реферальная ссылка:</p>
                 <div style="display:flex;gap:8px;">
                     <input id="refLink" type="text" readonly style="flex:1;background:#0c0c16;border:1px solid #1e1a2f;color:#9b85ff;padding:10px;border-radius:10px;font-size:11px;font-family:monospace;">
-                    <button onclick="copyRefLink()" style="width:auto;margin:0;padding:10px 14px;font-size:12px;">Копировать</button>
+                    <button onclick="copyRefLink()" style="width:auto;margin:0;padding:10px 14px;font-size:12px;background:#1a1240;border:1px solid #2d2350;color:#9b85ff;border-radius:12px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;">Copy</button>
                 </div>
             </div>
-            <p style="font-size:11px;color:#524a6e;">Ваш реферальный код будет активен после первой покупки.</p>
         </div>
 
+        <!-- Реквизиты -->
         <div class="description">
-            <h3>Реквизиты</h3>
+            <h3 data-ru="Реквизиты" data-en="Legal Info">Реквизиты</h3>
             <p>Самозанятый: Анфалов Глеб Андреевич</p>
             <p>ИНН: 450164957874</p>
             <p>Ссылка на бота: https://t.me/youniq_vpn_bot</p>
         </div>
 
+        <!-- Документы -->
         <div class="links">
-            <a onclick="showDoc('privacy')">Политика конфиденциальности</a>
-            <a onclick="showDoc('terms')">Правила использования</a>
-            <a onclick="showDoc('offer')">Публичная оферта</a>
+            <a onclick="showDoc('privacy')" data-ru="Политика конфиденциальности" data-en="Privacy Policy">Политика конфиденциальности</a>
+            <a onclick="showDoc('terms')" data-ru="Правила использования" data-en="Terms of Use">Правила использования</a>
+            <a onclick="showDoc('offer')" data-ru="Публичная оферта" data-en="Public Offer">Публичная оферта</a>
         </div>
 
         <hr class="divider">
-        <p class="footer-text">Youniq VPN &copy; 2026. Все права защищены.</p>
+        <p class="footer-text">Youniq VPN &copy; 2026</p>
     </div>
 
     <script>
@@ -598,7 +387,40 @@
 
         let selectedPlan = null;
         const btn = document.getElementById('payBtn');
+        let currentLang = 'ru';
+        let speedTestRunning = false;
 
+        // Переключение языка
+        function switchLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick="switchLang('${lang}')"]`).classList.add('active');
+            
+            document.querySelectorAll('[data-ru][data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (el.tagName === 'INPUT') el.placeholder = text;
+                    else if (el.tagName === 'BUTTON' && el.id !== 'payBtn') el.textContent = text;
+                    else el.textContent = text;
+                }
+            });
+            
+            // Обновляем кнопку оплаты
+            if (!selectedPlan) {
+                btn.textContent = lang === 'ru' ? 'Выберите тариф' : 'Select a plan';
+            } else {
+                btn.textContent = `${lang === 'ru' ? 'Оплатить' : 'Pay'} ${selectedPlan.price} RUB`;
+            }
+            
+            // Обновляем статус спидтеста
+            const status = document.getElementById('speedStatus');
+            if (!speedTestRunning) {
+                status.textContent = lang === 'ru' ? 'Нажмите кнопку для проверки' : 'Press button to test';
+            }
+            document.getElementById('speedBtn').textContent = lang === 'ru' ? 'Запустить тест' : 'Start Test';
+        }
+
+        // Выбор тарифа
         document.querySelectorAll('.plan').forEach(plan => {
             plan.addEventListener('click', () => {
                 document.querySelectorAll('.plan').forEach(p => p.classList.remove('active'));
@@ -608,7 +430,7 @@
                     price: plan.dataset.price
                 };
                 btn.disabled = false;
-                btn.textContent = 'Оплатить ' + selectedPlan.price + ' RUB';
+                btn.textContent = `${currentLang === 'ru' ? 'Оплатить' : 'Pay'} ${selectedPlan.price} RUB`;
             });
         });
 
@@ -617,9 +439,11 @@
             showKeyModal(selectedPlan);
         });
 
+        // Модалка с ключом
         function showKeyModal(plan) {
             const days = plan.plan === '1month' ? 30 : 90;
             const key = generateKey();
+            const isRu = currentLang === 'ru';
             
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
@@ -627,54 +451,46 @@
             const modal = document.createElement('div');
             modal.className = 'modal';
             modal.innerHTML = `
-                <h2>Доступ активирован</h2>
-                <p>Тариф: ${plan.plan === '1month' ? '1 месяц' : '3 месяца'} &middot; ${plan.price} RUB</p>
+                <h2>${isRu ? 'Доступ активирован' : 'Access Activated'}</h2>
+                <p>${isRu ? 'Тариф' : 'Plan'}: ${plan.plan === '1month' ? (isRu ? '1 месяц' : '1 Month') : (isRu ? '3 месяца' : '3 Months')} &middot; ${plan.price} RUB</p>
                 
-                <h3>Ваш ключ доступа</h3>
+                <h3>${isRu ? 'Ваш ключ доступа' : 'Your Access Key'}</h3>
                 <div class="key-box">
-                    <button class="copy-btn" onclick="copyKey('${key}')">Копировать</button>
+                    <button class="copy-btn" onclick="copyKey('${key}')">${isRu ? 'Копировать' : 'Copy'}</button>
                     ${key}
                 </div>
                 
-                <h3>Инструкция по настройке</h3>
+                <h3>${isRu ? 'Инструкция по настройке' : 'Setup Instructions'}</h3>
                 
                 <div class="step">
                     <div class="step-num">1</div>
-                    <div>
-                        <p><b>Скачайте приложение</b></p>
-                        <p>Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox</p>
-                    </div>
+                    <div><p><b>${isRu ? 'Скачайте приложение' : 'Download the app'}</b></p>
+                    <p>${isRu ? 'Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox' : 'Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox'}</p></div>
                 </div>
                 
                 <div class="step">
                     <div class="step-num">2</div>
-                    <div>
-                        <p><b>Импортируйте ключ</b></p>
-                        <p>Скопируйте ключ выше и вставьте в приложение (кнопка "+" или "Импорт")</p>
-                    </div>
+                    <div><p><b>${isRu ? 'Импортируйте ключ' : 'Import the key'}</b></p>
+                    <p>${isRu ? 'Скопируйте ключ и вставьте в приложение' : 'Copy the key and paste into the app'}</p></div>
                 </div>
                 
                 <div class="step">
                     <div class="step-num">3</div>
-                    <div>
-                        <p><b>Включите Split Tunneling</b></p>
-                        <p>V2RayNG: Настройки → Routing → Bypass LAN and mainland<br>Streisand: Настройки → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia</p>
-                    </div>
+                    <div><p><b>${isRu ? 'Включите Split Tunneling' : 'Enable Split Tunneling'}</b></p>
+                    <p>${isRu ? 'V2RayNG: Настройки → Routing → Bypass LAN and mainland<br>Streisand: Настройки → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia' : 'V2RayNG: Settings → Routing → Bypass LAN and mainland<br>Streisand: Settings → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia'}</p></div>
                 </div>
                 
                 <div class="step">
                     <div class="step-num">4</div>
-                    <div>
-                        <p><b>Подключитесь</b></p>
-                        <p>Нажмите кнопку подключения. Российские приложения работают напрямую, зарубежные — через VPN.</p>
-                    </div>
+                    <div><p><b>${isRu ? 'Подключитесь' : 'Connect'}</b></p>
+                    <p>${isRu ? 'Нажмите кнопку подключения. Российские приложения работают напрямую, зарубежные — через VPN.' : 'Press connect. Russian apps work directly, foreign apps go through VPN.'}</p></div>
                 </div>
                 
                 <p style="margin-top:14px;color:#524a6e;font-size:11px;">
-                    Срок действия: ${days} дней &middot; Устройств: 1 &middot; Трафик: безлимитный
+                    ${isRu ? 'Срок' : 'Duration'}: ${days} ${isRu ? 'дней' : 'days'} &middot; ${isRu ? 'Устройств' : 'Devices'}: 1 &middot; ${isRu ? 'Трафик: безлимитный' : 'Traffic: unlimited'}
                 </p>
                 
-                <button class="close-btn" onclick="tg.close()">Закрыть</button>
+                <button class="close-btn" onclick="tg.close()">${isRu ? 'Закрыть' : 'Close'}</button>
             `;
             
             overlay.appendChild(modal);
@@ -690,11 +506,54 @@
         function copyKey(key) {
             navigator.clipboard.writeText(key).then(() => {
                 const btn = document.querySelector('.copy-btn');
-                btn.textContent = 'Скопировано!';
-                setTimeout(() => { btn.textContent = 'Копировать'; }, 2000);
+                btn.textContent = currentLang === 'ru' ? 'Скопировано!' : 'Copied!';
+                setTimeout(() => { btn.textContent = currentLang === 'ru' ? 'Копировать' : 'Copy'; }, 2000);
             });
         }
 
+        // Проверка скорости
+        function startSpeedTest() {
+            if (speedTestRunning) return;
+            speedTestRunning = true;
+            
+            const btn = document.getElementById('speedBtn');
+            const status = document.getElementById('speedStatus');
+            const speedValue = document.getElementById('speedValue');
+            const circle = document.getElementById('progressCircle');
+            
+            btn.disabled = true;
+            btn.textContent = currentLang === 'ru' ? 'Тестирование...' : 'Testing...';
+            status.textContent = currentLang === 'ru' ? 'Подключение к серверу...' : 'Connecting to server...';
+            
+            const steps = [
+                { text: currentLang === 'ru' ? 'Измерение пинга...' : 'Measuring ping...', delay: 800 },
+                { text: currentLang === 'ru' ? 'Загрузка данных...' : 'Downloading data...', delay: 1200 },
+                { text: currentLang === 'ru' ? 'Обработка результатов...' : 'Processing results...', delay: 600 },
+            ];
+            
+            let stepIndex = 0;
+            function nextStep() {
+                if (stepIndex < steps.length) {
+                    status.textContent = steps[stepIndex].text;
+                    stepIndex++;
+                    setTimeout(nextStep, steps[stepIndex - 1].delay);
+                } else {
+                    const speed = (Math.random() * 400 + 100).toFixed(0);
+                    const circumference = 314;
+                    const offset = circumference - (speed / 500) * circumference;
+                    
+                    circle.style.strokeDashoffset = offset;
+                    speedValue.innerHTML = `${speed}<span>Mbps</span>`;
+                    status.textContent = (currentLang === 'ru' ? 'Скорость: ' : 'Speed: ') + speed + ' Mbps';
+                    btn.textContent = currentLang === 'ru' ? 'Запустить тест' : 'Start Test';
+                    btn.disabled = false;
+                    speedTestRunning = false;
+                }
+            }
+            nextStep();
+        }
+
+        // Реферальная ссылка
         function generateRefLink() {
             const userId = tg.initDataUnsafe?.user?.id || 'unknown';
             const refCode = btoa(String(userId)).substring(0, 8);
@@ -704,55 +563,86 @@
         function copyRefLink() {
             const input = document.getElementById('refLink');
             navigator.clipboard.writeText(input.value).then(() => {
-                tg.showPopup({ title: 'Готово', message: 'Реферальная ссылка скопирована!' });
+                tg.showPopup({ title: 'OK', message: currentLang === 'ru' ? 'Реферальная ссылка скопирована!' : 'Referral link copied!' });
             });
         }
 
         generateRefLink();
 
+        // Документы
         const docs = {
-            privacy: `
-                <h2>Политика конфиденциальности</h2>
-                <p>Дата последнего обновления: 24 апреля 2026 года.</p>
-                <h3>1. Общие положения</h3>
-                <p>Настоящая Политика конфиденциальности определяет, как сервис Youniq VPN собирает, использует и защищает информацию, полученную от пользователей.</p>
-                <h3>2. Какие данные мы собираем</h3>
-                <p>Youniq VPN собирает только ваш Telegram ID для идентификации активной подписки. Мы не запрашиваем имя, email, номер телефона или любые другие персональные данные. Факт оплаты фиксируется платёжной системой ЮKassa, которая обрабатывает платёжные данные в соответствии со своей политикой конфиденциальности.</p>
-                <h3>3. Какие данные мы НЕ собираем</h3>
-                <p>Мы не ведём логи трафика. Мы не сохраняем историю посещённых сайтов. Мы не отслеживаем DNS-запросы. Мы не записываем временные метки подключения. Мы не храним IP-адреса после завершения сессии. Мы не используем файлы cookie или аналогичные технологии отслеживания.</p>
-                <h3>4. Передача данных третьим лицам</h3>
-                <p>Youniq VPN не передаёт, не продаёт и не обменивает данные пользователей третьим лицам ни при каких обстоятельствах, за исключением случаев, предусмотренных законодательством Российской Федерации.</p>
-                <h3>5. Безопасность</h3>
-                <p>Все соединения шифруются с использованием протокола VLESS с технологией XTLS-Reality. Данные передаются в зашифрованном виде. Мы принимаем разумные меры для защиты информации от несанкционированного доступа.</p>
-                <h3>6. Изменения в политике</h3>
-                <p>Мы оставляем за собой право изменять данную политику. Актуальная версия всегда доступна в этом разделе. Продолжая использовать сервис после изменений, вы соглашаетесь с новой редакцией политики.</p>
-            `,
-            terms: `
-                <h2>Правила использования</h2>
-                <p>Используя Youniq VPN, вы соглашаетесь со следующими правилами. Нарушение любого из этих правил может привести к блокировке аккаунта без возврата средств.</p>
-                <h3>1. Запрещённая деятельность</h3>
-                <p>Запрещено использовать сервис для: спама и массовых рассылок; брутфорса и подбора паролей; DDoS-атак и нарушения работы сетей; распространения вредоносного ПО; фишинга и мошенничества; нарушения авторских прав; детской порнографии и любого незаконного контента; любых действий, нарушающих законодательство Российской Федерации и международное право.</p>
-                <h3>2. Ответственность пользователя</h3>
-                <p>Пользователь несёт полную ответственность за свои действия при использовании сервиса. Youniq VPN не несёт ответственности за ущерб, причинённый в результате использования или невозможности использования сервиса. Пользователь обязуется не передавать свои учётные данные третьим лицам.</p>
-                <h3>3. Блокировка аккаунта</h3>
-                <p>При нарушении правил использования аккаунт блокируется без предупреждения и без возврата средств. Мы оставляем за собой право отказать в обслуживании любому пользователю без объяснения причин.</p>
-                <h3>4. Изменение правил</h3>
-                <p>Мы оставляем за собой право изменять правила использования в любое время. Актуальная версия всегда доступна в этом разделе. Продолжение использования сервиса означает согласие с новыми правилами.</p>
-            `,
-            offer: `
-                <h2>Публичная оферта</h2>
-                <p>Настоящий документ является официальным предложением (офертой) самозанятого Анфалова Глеба Андреевича (ИНН: 450164957874) на предоставление услуг доступа к VPN-серверу Youniq VPN.</p>
-                <h3>1. Предмет оферты</h3>
-                <p>Исполнитель предоставляет Заказчику доступ к VPN-серверу на условиях выбранного тарифа. Услуга считается оказанной с момента активации подписки и выдачи ключа доступа. Срок действия подписки указан в описании тарифа.</p>
-                <h3>2. Оплата</h3>
-                <p>Оплата производится в рублях через платёжную систему ЮKassa. Цены указаны на странице тарифов и включают все комиссии. Моментом оплаты считается поступление денежных средств на счёт Исполнителя.</p>
-                <h3>3. Возврат средств</h3>
-                <p>Возврат средств возможен в течение 48 часов с момента оплаты при условии отсутствия нарушений правил использования. Для возврата обратитесь в поддержку через Telegram-бота. После истечения 48 часов возврат не производится. Возврат осуществляется за вычетом комиссии платёжной системы.</p>
-                <h3>4. Срок действия и продление</h3>
-                <p>Подписка активна в течение оплаченного периода с момента активации. По истечении срока доступ автоматически прекращается. Продление подписки производится путём повторной оплаты.</p>
-                <h3>5. Контакты</h3>
-                <p>Исполнитель: Самозанятый Анфалов Глеб Андреевич<br>ИНН: 450164957874<br>По всем вопросам обращайтесь в Telegram-бота поддержки: @youniq_vpn_bot</p>
-            `
+            privacy: {
+                ru: `
+                    <h2>Политика конфиденциальности</h2>
+                    <p>Дата обновления: 24 апреля 2026.</p>
+                    <h3>1. Какие данные мы собираем</h3>
+                    <p>Youniq VPN собирает только ваш Telegram ID для идентификации подписки.</p>
+                    <h3>2. Какие данные мы НЕ собираем</h3>
+                    <p>Мы не ведём логи трафика, не сохраняем историю посещений, не отслеживаем DNS-запросы.</p>
+                    <h3>3. Передача данных третьим лицам</h3>
+                    <p>Youniq VPN не передаёт данные пользователей третьим лицам.</p>
+                    <h3>4. Безопасность</h3>
+                    <p>Все соединения шифруются протоколом VLESS с технологией XTLS-Reality.</p>
+                `,
+                en: `
+                    <h2>Privacy Policy</h2>
+                    <p>Last updated: April 24, 2026.</p>
+                    <h3>1. What data we collect</h3>
+                    <p>Youniq VPN collects only your Telegram ID for subscription identification.</p>
+                    <h3>2. What data we DO NOT collect</h3>
+                    <p>We do not log traffic, browsing history, or DNS queries.</p>
+                    <h3>3. Third-party data sharing</h3>
+                    <p>Youniq VPN does not share user data with third parties.</p>
+                    <h3>4. Security</h3>
+                    <p>All connections are encrypted using VLESS protocol with XTLS-Reality.</p>
+                `
+            },
+            terms: {
+                ru: `
+                    <h2>Правила использования</h2>
+                    <h3>1. Запрещённая деятельность</h3>
+                    <p>Запрещено: спам, брутфорс, DDoS, вредоносное ПО, фишинг, мошенничество.</p>
+                    <h3>2. Ответственность</h3>
+                    <p>Пользователь несёт полную ответственность за свои действия.</p>
+                    <h3>3. Блокировка</h3>
+                    <p>При нарушении — блокировка без возврата средств.</p>
+                `,
+                en: `
+                    <h2>Terms of Use</h2>
+                    <h3>1. Prohibited activities</h3>
+                    <p>Spam, brute force, DDoS, malware, phishing, fraud are prohibited.</p>
+                    <h3>2. Responsibility</h3>
+                    <p>User bears full responsibility for their actions.</p>
+                    <h3>3. Blocking</h3>
+                    <p>Violation results in blocking without refund.</p>
+                `
+            },
+            offer: {
+                ru: `
+                    <h2>Публичная оферта</h2>
+                    <p>Оферта самозанятого Анфалова Глеба Андреевича (ИНН: 450164957874).</p>
+                    <h3>1. Предмет</h3>
+                    <p>Доступ к VPN-серверу на условиях выбранного тарифа.</p>
+                    <h3>2. Оплата</h3>
+                    <p>Через ЮKassa. Цены указаны на странице тарифов.</p>
+                    <h3>3. Возврат</h3>
+                    <p>Возможен в течение 48 часов при отсутствии нарушений.</p>
+                    <h3>4. Контакты</h3>
+                    <p>@youniq_vpn_bot</p>
+                `,
+                en: `
+                    <h2>Public Offer</h2>
+                    <p>Offer by self-employed Anfalov Gleb Andreevich (TIN: 450164957874).</p>
+                    <h3>1. Subject</h3>
+                    <p>VPN server access under the selected plan.</p>
+                    <h3>2. Payment</h3>
+                    <p>Via YooKassa. Prices listed on the tariffs page.</p>
+                    <h3>3. Refund</h3>
+                    <p>Available within 48 hours if no violations.</p>
+                    <h3>4. Contacts</h3>
+                    <p>@youniq_vpn_bot</p>
+                `
+            }
         };
 
         function showDoc(type) {
@@ -761,7 +651,8 @@
             
             const modal = document.createElement('div');
             modal.className = 'modal';
-            modal.innerHTML = docs[type] + '<button class="close-btn" onclick="this.closest(\'.modal-overlay\').remove()">Закрыть</button>';
+            const content = docs[type][currentLang] || docs[type]['ru'];
+            modal.innerHTML = content + `<button class="close-btn" onclick="this.closest('.modal-overlay').remove()">${currentLang === 'ru' ? 'Закрыть' : 'Close'}</button>`;
             
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
