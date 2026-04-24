@@ -347,7 +347,50 @@
             <h3 data-ru="О сервисе" data-en="About">О сервисе</h3>
             <p data-ru="Youniq VPN использует протокол VLESS с технологией XTLS-Reality и раздельным туннелированием трафика. Российские приложения и сайты работают напрямую, без VPN — банки, госуслуги, отечественные сервисы не заметят подключения." data-en="Youniq VPN uses VLESS protocol with XTLS-Reality technology and split tunneling. Russian apps and sites work directly without VPN — banks, government services won't detect the connection.">Youniq VPN использует протокол VLESS с технологией XTLS-Reality и раздельным туннелированием трафика. Российские приложения и сайты работают напрямую, без VPN — банки, госуслуги, отечественные сервисы не заметят подключения.</p>
         </div>
-
+        <!-- FAQ -->
+        <div class="description">
+            <h3 data-ru="Частые вопросы" data-en="FAQ">Частые вопросы</h3>
+            
+            <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="Нужно ли отключать VPN для российских приложений?" data-en="Do I need to disable VPN for Russian apps?">Нужно ли отключать VPN для российских приложений?</p>
+                    <span class="faq-arrow" style="color:#524a6e;transition:0.3s;font-size:18px;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height:0;overflow:hidden;transition:0.3s;">
+                    <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Нет. Благодаря раздельному туннелированию (Split Tunneling) российские приложения автоматически работают напрямую, без VPN. Вам не нужно вручную включать или отключать VPN." data-en="No. Thanks to Split Tunneling, Russian apps automatically work directly without VPN. You don't need to manually enable or disable VPN.">Нет. Благодаря раздельному туннелированию (Split Tunneling) российские приложения автоматически работают напрямую, без VPN. Вам не нужно вручную включать или отключать VPN.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="На каких устройствах работает?" data-en="What devices are supported?">На каких устройствах работает?</p>
+                    <span class="faq-arrow" style="color:#524a6e;transition:0.3s;font-size:18px;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height:0;overflow:hidden;transition:0.3s;">
+                    <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Android (V2RayNG из RuStore), iOS (Streisand из App Store), Windows и macOS (NekoBox). На одном ключе — одно устройство." data-en="Android (V2RayNG from RuStore), iOS (Streisand from App Store), Windows and macOS (NekoBox). One key = one device.">Android (V2RayNG из RuStore), iOS (Streisand из App Store), Windows и macOS (NekoBox). На одном ключе — одно устройство.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="Что если ключ заблокируют?" data-en="What if the key gets blocked?">Что если ключ заблокируют?</p>
+                    <span class="faq-arrow" style="color:#524a6e;transition:0.3s;font-size:18px;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height:0;overflow:hidden;transition:0.3s;">
+                    <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Просто откройте магазин заново — ключ обновится автоматически. Вы можете обновлять ключ неограниченное количество раз в течение оплаченного периода." data-en="Just open the store again — the key will refresh automatically. You can update the key unlimited times during the paid period.">Просто откройте магазин заново — ключ обновится автоматически. Вы можете обновлять ключ неограниченное количество раз в течение оплаченного периода.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="Как оплатить?" data-en="How to pay?">Как оплатить?</p>
+                    <span class="faq-arrow" style="color:#524a6e;transition:0.3s;font-size:18px;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height:0;overflow:hidden;transition:0.3s;">
+                    <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Оплата через ЮKassa — карты РФ, СБП, ЮMoney. Выберите тариф, нажмите «Оплатить», и следуйте инструкциям." data-en="Payment via YooKassa — Russian cards, SBP, YooMoney. Select a plan, press «Pay», and follow instructions.">Оплата через ЮKassa — карты РФ, СБП, ЮMoney. Выберите тариф, нажмите «Оплатить», и следуйте инструкциям.</p>
+                </div>
+            </div>
+        </div>
         <!-- Реферальная программа -->
         <div class="description">
             <h3 data-ru="Реферальная программа" data-en="Referral Program">Реферальная программа</h3>
