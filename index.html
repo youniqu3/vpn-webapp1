@@ -426,7 +426,6 @@
             cursor: pointer;
         }
 
-        /* Ключ */
         .key-box {
             background: #0a0a14;
             border: 1px solid #1e1a2f;
@@ -476,183 +475,12 @@
             flex-shrink: 0;
         }
 
-        /* Тест скорости */
-        .speedtest-block {
-            margin-top: 28px;
-            background: #0c0c16;
-            border: 1px solid #16122a;
-            border-radius: 20px;
-            padding: 22px;
-            text-align: center;
-            animation: fadeUp 0.6s ease-out 0.5s both;
-        }
-
-        .speedtest-block h3 {
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 4px;
-        }
-
-        .speedtest-block > p {
-            font-size: 11px;
-            color: #524a6e;
-            margin-bottom: 14px;
-        }
-
-        #speedtestBtn {
-            width: auto;
-            padding: 12px 24px;
-            margin: 0 auto;
-            background: #1a1240;
-            border: 1px solid #2a2048;
-            border-radius: 14px;
-            color: #9b85ff;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            animation: none;
-        }
-
-        #speedtestBtn:hover {
-            background: #221a4a;
-            border-color: #3d2b6b;
-        }
-
-        #speedtestBtn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .speed-result {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 16px;
-            display: none;
-        }
-
-        .speed-result.show {
-            display: flex;
-        }
-
-        .speed-item {
-            text-align: center;
-        }
-
-        .speed-value {
-            font-size: 22px;
-            font-weight: 800;
-            color: #9b85ff;
-            display: block;
-        }
-
-        .speed-label {
-            font-size: 10px;
-            color: #524a6e;
-            font-weight: 500;
-        }
-
-        /* FAQ */
-        .faq-block {
-            margin-top: 28px;
-            background: #0c0c16;
-            border: 1px solid #16122a;
-            border-radius: 20px;
-            padding: 20px;
-            animation: fadeUp 0.6s ease-out 0.55s both;
-        }
-
-        .faq-block h3 {
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 14px;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid #16122a;
-            padding: 12px 0;
-        }
-
-        .faq-item:last-child {
-            border-bottom: none;
-        }
-
-        .faq-question {
-            font-size: 12px;
-            font-weight: 600;
-            color: #c4b8ff;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .faq-question .arrow {
-            font-size: 10px;
-            transition: transform 0.3s;
-            color: #6b5b95;
-        }
-
-        .faq-item.open .faq-question .arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            font-size: 11px;
-            color: #5a5078;
-            line-height: 1.6;
-            font-weight: 500;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, margin-top 0.3s ease;
-        }
-
-        .faq-item.open .faq-answer {
-            max-height: 200px;
-            margin-top: 8px;
-        }
-
-        /* Язык */
-        .lang-switch {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            animation: fadeUp 0.6s ease-out 0.05s both;
-        }
-
-        .lang-btn {
-            width: auto;
-            padding: 6px 14px;
-            margin: 0;
-            background: transparent;
+        .ref-box {
+            background: #0a0a14;
             border: 1px solid #1e1a2f;
-            border-radius: 20px;
-            color: #6b5b95;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            animation: none;
-            box-shadow: none;
-        }
-
-        .lang-btn.active {
-            background: #1a1240;
-            border-color: #2d2350;
-            color: #9b85ff;
-        }
-
-        .lang-btn:hover {
-            border-color: #2d2350;
-            color: #9b85ff;
-            transform: none;
-            box-shadow: none;
+            border-radius: 14px;
+            padding: 14px;
+            margin: 12px 0;
         }
     </style>
 </head>
@@ -663,152 +491,100 @@
         <h1>Youniq VPN</h1>
         <p class="subtitle">Privacy Reimagined</p>
 
-        <div class="lang-switch">
-            <button class="lang-btn active" onclick="switchLang('ru', this)">RU</button>
-            <button class="lang-btn" onclick="switchLang('en', this)">EN</button>
-        </div>
-
         <div class="plans">
             <div class="plan" data-plan="1month" data-price="120">
                 <div class="badge">STARTER</div>
-                <h2 data-ru="1 месяц" data-en="1 Month">1 месяц</h2>
+                <h2>1 месяц</h2>
                 <div class="price">120 <span class="currency">RUB</span></div>
-                <div class="desc" data-ru="Безлимитный трафик" data-en="Unlimited traffic">Безлимитный трафик</div>
+                <div class="desc">Безлимитный трафик</div>
                 <div class="devices">
-                    <div class="dot"></div><span data-ru="1 устройство" data-en="1 device">1 устройство</span>
+                    <div class="dot"></div><span>1 устройство</span>
                 </div>
             </div>
 
             <div class="plan" data-plan="3month" data-price="350">
                 <div class="badge">POPULAR</div>
-                <h2 data-ru="3 месяца" data-en="3 Months">3 месяца</h2>
+                <h2>3 месяца</h2>
                 <div class="price">350 <span class="currency">RUB</span></div>
-                <div class="desc" data-ru="Безлимитный трафик" data-en="Unlimited traffic">Безлимитный трафик</div>
+                <div class="desc">Безлимитный трафик</div>
                 <div class="devices">
-                    <div class="dot"></div><span data-ru="1 устройство" data-en="1 device">1 устройство</span>
+                    <div class="dot"></div><span>1 устройство</span>
                 </div>
             </div>
         </div>
 
-        <button id="payBtn" disabled data-ru="Выберите тариф" data-en="Select a plan">Выберите тариф</button>
+        <button id="payBtn" disabled>Выберите тариф</button>
 
         <div class="advantages">
             <div class="advantage">
                 <div class="icon">
                     <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </div>
-                <h3 data-ru="Шифрование" data-en="Encryption">Шифрование</h3>
-                <p data-ru="Военный уровень AES-256" data-en="Military grade AES-256">Военный уровень AES-256</p>
+                <h3>Шифрование</h3>
+                <p>Военный уровень AES-256</p>
             </div>
             <div class="advantage">
                 <div class="icon">
                     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 </div>
-                <h3 data-ru="Скорость" data-en="Speed">Скорость</h3>
-                <p data-ru="До 10 Гбит/c на сервер" data-en="Up to 10 Gbps">До 10 Гбит/c на сервер</p>
+                <h3>Скорость</h3>
+                <p>До 10 Гбит/c на сервер</p>
             </div>
             <div class="advantage">
                 <div class="icon">
                     <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 </div>
-                <h3 data-ru="Без логов" data-en="No Logs">Без логов</h3>
-                <p data-ru="Не храним историю" data-en="No history stored">Не храним историю</p>
+                <h3>Без логов</h3>
+                <p>Не храним историю</p>
             </div>
             <div class="advantage">
                 <div class="icon">
                     <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 </div>
-                <h3 data-ru="Устройства" data-en="Devices">Устройства</h3>
-                <p data-ru="Windows, iOS, Android" data-en="Windows, iOS, Android">Windows, iOS, Android</p>
+                <h3>Устройства</h3>
+                <p>Windows, iOS, Android</p>
             </div>
         </div>
 
         <div class="description">
-            <h3 data-ru="О сервисе" data-en="About the Service">О сервисе</h3>
-            <p data-ru="Youniq VPN использует протокол VLESS с технологией XTLS-Reality и раздельным туннелированием трафика. Российские приложения и сайты работают напрямую, без VPN — банки, госуслуги, отечественные сервисы не заметят подключения." data-en="Youniq VPN uses VLESS protocol with XTLS-Reality technology and split tunneling. Russian apps and websites work directly without VPN — banks, government services, local services won't detect the connection.">Youniq VPN использует протокол VLESS с технологией XTLS-Reality и раздельным туннелированием трафика. Российские приложения и сайты работают напрямую, без VPN — банки, госуслуги, отечественные сервисы не заметят подключения.</p>
-            <p data-ru="Зарубежные сервисы (YouTube, Discord, ChatGPT) автоматически направляются через защищённый туннель. Вам не нужно вручную включать и отключать VPN." data-en="Foreign services (YouTube, Discord, ChatGPT) are automatically routed through a secure tunnel. No need to manually turn VPN on and off.">Зарубежные сервисы (YouTube, Discord, ChatGPT) автоматически направляются через защищённый туннель. Вам не нужно вручную включать и отключать VPN.</p>
+            <h3>О сервисе</h3>
+            <p>
+                Youniq VPN использует протокол VLESS с технологией XTLS-Reality и 
+                раздельным туннелированием трафика. Российские приложения и сайты 
+                работают напрямую, без VPN — банки, госуслуги, отечественные сервисы 
+                не заметят подключения.
+            </p>
+            <p>
+                Зарубежные сервисы (YouTube, Discord, ChatGPT) автоматически 
+                направляются через защищённый туннель. Вам не нужно вручную 
+                включать и отключать VPN.
+            </p>
         </div>
 
-        <!-- Тест скорости -->
-        <div class="speedtest-block">
-            <h3 data-ru="Скорость соединения" data-en="Connection Speed">Скорость соединения</h3>
-            <p data-ru="Проверьте пинг до нашего сервера" data-en="Test ping to our server">Проверьте пинг до нашего сервера</p>
-            <button id="speedtestBtn" onclick="testSpeed()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span data-ru="Запустить тест" data-en="Start Test">Запустить тест</span>
-            </button>
-            <div id="speedResult" class="speed-result">
-                <div class="speed-item">
-                    <span class="speed-value" id="pingValue">--</span>
-                    <span class="speed-label" data-ru="Пинг (мс)" data-en="Ping (ms)">Пинг (мс)</span>
-                </div>
-                <div class="speed-item">
-                    <span class="speed-value" id="downloadValue">--</span>
-                    <span class="speed-label" data-ru="Загрузка (Мбит/с)" data-en="Download (Mbps)">Загрузка (Мбит/с)</span>
-                </div>
-                <div class="speed-item">
-                    <span class="speed-value" id="uploadValue">--</span>
-                    <span class="speed-label" data-ru="Отдача (Мбит/с)" data-en="Upload (Mbps)">Отдача (Мбит/с)</span>
+        <div class="description">
+            <h3>Реферальная программа</h3>
+            <p>Пригласите друга — получите <b>скидку 10%</b> на следующую покупку после его первой оплаты.</p>
+            <div class="ref-box">
+                <p style="font-size:11px;color:#6b5b95;margin-bottom:8px;">Ваша реферальная ссылка:</p>
+                <div style="display:flex;gap:8px;">
+                    <input id="refLink" type="text" readonly style="flex:1;background:#0c0c16;border:1px solid #1e1a2f;color:#9b85ff;padding:10px;border-radius:10px;font-size:11px;font-family:monospace;">
+                    <button onclick="copyRefLink()" style="width:auto;margin:0;padding:10px 14px;font-size:12px;">Копировать</button>
                 </div>
             </div>
+            <p style="font-size:11px;color:#524a6e;">Ваш реферальный код будет активен после первой покупки.</p>
         </div>
 
-        <!-- FAQ -->
-        <div class="faq-block">
-            <h3 data-ru="Частые вопросы" data-en="FAQ">Частые вопросы</h3>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span data-ru="Как подключить VPN?" data-en="How to connect?">Как подключить VPN?</span>
-                    <span class="arrow">&#9660;</span>
-                </div>
-                <div class="faq-answer" data-ru="Скачайте V2RayNG (Android), Streisand (iOS) или NekoBox (Windows/Mac). Скопируйте ключ, полученный после оплаты, и вставьте в приложение. Нажмите подключиться." data-en="Download V2RayNG (Android), Streisand (iOS) or NekoBox (Windows/Mac). Copy the key received after payment and paste it into the app. Press connect.">Скачайте V2RayNG (Android), Streisand (iOS) или NekoBox (Windows/Mac). Скопируйте ключ, полученный после оплаты, и вставьте в приложение. Нажмите подключиться.</div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span data-ru="Что такое Split Tunneling?" data-en="What is Split Tunneling?">Что такое Split Tunneling?</span>
-                    <span class="arrow">&#9660;</span>
-                </div>
-                <div class="faq-answer" data-ru="Раздельное туннелирование — технология, при которой российские приложения и сайты работают напрямую, без VPN, а зарубежные — через зашифрованный туннель. Вам не нужно отключать VPN для доступа к банкам или госуслугам." data-en="Split tunneling is a technology where Russian apps and websites work directly without VPN, while foreign ones go through an encrypted tunnel. No need to turn off VPN for banks or government services.">Раздельное туннелирование — технология, при которой российские приложения и сайты работают напрямую, без VPN, а зарубежные — через зашифрованный туннель. Вам не нужно отключать VPN для доступа к банкам или госуслугам.</div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span data-ru="Почему не работает VPN?" data-en="Why is VPN not working?">Почему не работает VPN?</span>
-                    <span class="arrow">&#9660;</span>
-                </div>
-                <div class="faq-answer" data-ru="Убедитесь, что ключ скопирован полностью. Проверьте подключение к интернету. Попробуйте перезапустить приложение. Если проблема сохраняется — обратитесь в поддержку через бота." data-en="Make sure the key is copied completely. Check your internet connection. Try restarting the app. If the problem persists — contact support via the bot.">Убедитесь, что ключ скопирован полностью. Проверьте подключение к интернету. Попробуйте перезапустить приложение. Если проблема сохраняется — обратитесь в поддержку через бота.</div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span data-ru="Как продлить подписку?" data-en="How to renew?">Как продлить подписку?</span>
-                    <span class="arrow">&#9660;</span>
-                </div>
-                <div class="faq-answer" data-ru="Просто купите новый тариф в магазине. Новый ключ придёт автоматически после оплаты. Старый ключ перестанет работать по истечении срока." data-en="Simply buy a new plan in the store. A new key will arrive automatically after payment. The old key will expire at the end of its term.">Просто купите новый тариф в магазине. Новый ключ придёт автоматически после оплаты. Старый ключ перестанет работать по истечении срока.</div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span data-ru="Есть ли возврат средств?" data-en="Is there a refund?">Есть ли возврат средств?</span>
-                    <span class="arrow">&#9660;</span>
-                </div>
-                <div class="faq-answer" data-ru="Да, возврат возможен в течение 48 часов после оплаты при отсутствии нарушений правил использования. Обратитесь в поддержку." data-en="Yes, refund is possible within 48 hours after payment if no terms of use violations occurred. Contact support.">Да, возврат возможен в течение 48 часов после оплаты при отсутствии нарушений правил использования. Обратитесь в поддержку.</div>
-            </div>
+        <div class="description">
+            <h3>Реквизиты</h3>
+            <p>Самозанятый: Анфалов Глеб Андреевич</p>
+            <p>ИНН: 450164957874</p>
+            <p>Ссылка на бота: https://t.me/youniq_vpn_bot</p>
         </div>
 
         <div class="links">
             <a onclick="showDoc('privacy')">Политика конфиденциальности</a>
             <a onclick="showDoc('terms')">Правила использования</a>
             <a onclick="showDoc('offer')">Публичная оферта</a>
-        </div>
-
-        <div class="description" style="margin-top:20px;">
-            <h3>Реквизиты</h3>
-            <p>Самозанятый: Анфалов Глеб Андреевич</p>
-            <p>ИНН: 450164957874</p>
-            <p>Ссылка на бота: https://t.me/youniq_vpn_bot</p>
         </div>
 
         <hr class="divider">
@@ -822,7 +598,6 @@
 
         let selectedPlan = null;
         const btn = document.getElementById('payBtn');
-        let currentLang = 'ru';
 
         document.querySelectorAll('.plan').forEach(plan => {
             plan.addEventListener('click', () => {
@@ -833,7 +608,7 @@
                     price: plan.dataset.price
                 };
                 btn.disabled = false;
-                btn.textContent = (currentLang === 'ru' ? 'Оплатить ' : 'Pay ') + selectedPlan.price + ' RUB';
+                btn.textContent = 'Оплатить ' + selectedPlan.price + ' RUB';
             });
         });
 
@@ -845,64 +620,63 @@
         function showKeyModal(plan) {
             const days = plan.plan === '1month' ? 30 : 90;
             const key = generateKey();
-            const isRu = currentLang === 'ru';
-
+            
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
-
+            
             const modal = document.createElement('div');
             modal.className = 'modal';
             modal.innerHTML = `
-                <h2>${isRu ? 'Доступ активирован' : 'Access Activated'}</h2>
-                <p>${isRu ? 'Тариф' : 'Plan'}: ${plan.plan === '1month' ? (isRu ? '1 месяц' : '1 Month') : (isRu ? '3 месяца' : '3 Months')} &middot; ${plan.price} RUB</p>
-
-                <h3>${isRu ? 'Ваш ключ доступа' : 'Your Access Key'}</h3>
+                <h2>Доступ активирован</h2>
+                <p>Тариф: ${plan.plan === '1month' ? '1 месяц' : '3 месяца'} &middot; ${plan.price} RUB</p>
+                
+                <h3>Ваш ключ доступа</h3>
                 <div class="key-box">
-                    <button class="copy-btn" onclick="copyKey('${key}')">${isRu ? 'Копировать' : 'Copy'}</button>
+                    <button class="copy-btn" onclick="copyKey('${key}')">Копировать</button>
                     ${key}
                 </div>
-
-                <h3>${isRu ? 'Инструкция по настройке' : 'Setup Guide'}</h3>
-
+                
+                <h3>Инструкция по настройке</h3>
+                
                 <div class="step">
                     <div class="step-num">1</div>
                     <div>
-                        <p><b>${isRu ? 'Скачайте приложение' : 'Download the app'}</b></p>
-                        <p>${isRu ? 'Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox' : 'Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox'}</p>
+                        <p><b>Скачайте приложение</b></p>
+                        <p>Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox</p>
                     </div>
                 </div>
-
+                
                 <div class="step">
                     <div class="step-num">2</div>
                     <div>
-                        <p><b>${isRu ? 'Импортируйте ключ' : 'Import the key'}</b></p>
-                        <p>${isRu ? 'Скопируйте ключ выше и вставьте в приложение (обычно кнопка "+" или "Импорт")' : 'Copy the key above and paste it into the app (usually "+" or "Import" button)'}</p>
+                        <p><b>Импортируйте ключ</b></p>
+                        <p>Скопируйте ключ выше и вставьте в приложение (кнопка "+" или "Импорт")</p>
                     </div>
                 </div>
-
+                
                 <div class="step">
                     <div class="step-num">3</div>
                     <div>
-                        <p><b>${isRu ? 'Включите Split Tunneling' : 'Enable Split Tunneling'}</b></p>
-                        <p>${isRu ? 'V2RayNG: Настройки → Routing → Bypass LAN and mainland<br>Streisand: Настройки → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia' : 'V2RayNG: Settings → Routing → Bypass LAN and mainland<br>Streisand: Settings → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia'}</p>
+                        <p><b>Включите Split Tunneling</b></p>
+                        <p>V2RayNG: Настройки → Routing → Bypass LAN and mainland<br>Streisand: Настройки → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia</p>
                     </div>
                 </div>
-
+                
                 <div class="step">
                     <div class="step-num">4</div>
                     <div>
-                        <p><b>${isRu ? 'Подключитесь' : 'Connect'}</b></p>
-                        <p>${isRu ? 'Нажмите кнопку подключения. Российские приложения будут работать напрямую, зарубежные — через VPN.' : 'Press the connect button. Russian apps will work directly, foreign ones — through VPN.'}</p>
+                        <p><b>Подключитесь</b></p>
+                        <p>Нажмите кнопку подключения. Российские приложения работают напрямую, зарубежные — через VPN.</p>
                     </div>
                 </div>
-
+                
                 <p style="margin-top:14px;color:#524a6e;font-size:11px;">
-                    ${isRu ? 'Срок действия' : 'Validity'}: ${days} ${isRu ? 'дней' : 'days'} &middot; ${isRu ? 'Устройств' : 'Devices'}: 1 &middot; ${isRu ? 'Трафик' : 'Traffic'}: ${isRu ? 'безлимитный' : 'unlimited'}
+                    Срок действия: ${days} дней &middot; Устройств: 1 &middot; Трафик: безлимитный
                 </p>
-
-                <button class="close-btn" onclick="tg.close()">${isRu ? 'Закрыть' : 'Close'}</button>
+                
+                <button class="close-btn" onclick="tg.close()">Закрыть</button>
             `;
-
+            
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
         }
@@ -916,118 +690,82 @@
         function copyKey(key) {
             navigator.clipboard.writeText(key).then(() => {
                 const btn = document.querySelector('.copy-btn');
-                btn.textContent = currentLang === 'ru' ? 'Скопировано!' : 'Copied!';
-                setTimeout(() => { btn.textContent = currentLang === 'ru' ? 'Копировать' : 'Copy'; }, 2000);
+                btn.textContent = 'Скопировано!';
+                setTimeout(() => { btn.textContent = 'Копировать'; }, 2000);
             });
         }
 
-        function switchLang(lang, el) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
+        function generateRefLink() {
+            const userId = tg.initDataUnsafe?.user?.id || 'unknown';
+            const refCode = btoa(String(userId)).substring(0, 8);
+            document.getElementById('refLink').value = `https://t.me/youniq_vpn_bot?start=ref_${refCode}`;
+        }
 
-            document.querySelectorAll('[data-ru][data-en]').forEach(el => {
-                el.textContent = el.dataset[lang];
+        function copyRefLink() {
+            const input = document.getElementById('refLink');
+            navigator.clipboard.writeText(input.value).then(() => {
+                tg.showPopup({ title: 'Готово', message: 'Реферальная ссылка скопирована!' });
             });
-
-            if (btn.disabled) {
-                btn.textContent = lang === 'ru' ? 'Выберите тариф' : 'Select a plan';
-            } else if (selectedPlan) {
-                btn.textContent = (lang === 'ru' ? 'Оплатить ' : 'Pay ') + selectedPlan.price + ' RUB';
-            }
-
-            const speedBtn = document.getElementById('speedtestBtn');
-            if (speedBtn) {
-                const span = speedBtn.querySelector('span');
-                if (span) span.textContent = lang === 'ru' ? 'Запустить тест' : 'Start Test';
-            }
         }
 
-        function toggleFaq(question) {
-            const item = question.parentElement;
-            item.classList.toggle('open');
-        }
-
-        async function testSpeed() {
-            const btn = document.getElementById('speedtestBtn');
-            const resultDiv = document.getElementById('speedResult');
-            const pingEl = document.getElementById('pingValue');
-            const downloadEl = document.getElementById('downloadValue');
-            const uploadEl = document.getElementById('uploadValue');
-            const isRu = currentLang === 'ru';
-
-            btn.disabled = true;
-            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + (isRu ? 'Тестируем...' : 'Testing...');
-            resultDiv.classList.remove('show');
-
-            const pingStart = performance.now();
-            try {
-                await fetch('https://www.google.com/favicon.ico', { mode: 'no-cors', cache: 'no-store' });
-            } catch(e) {}
-            const pingEnd = performance.now();
-            const ping = Math.round(pingEnd - pingStart);
-            pingEl.textContent = ping;
-
-            const downloadSpeed = (20 + Math.random() * 80).toFixed(1);
-            const uploadSpeed = (10 + Math.random() * 40).toFixed(1);
-
-            setTimeout(() => {
-                downloadEl.textContent = downloadSpeed;
-                uploadEl.textContent = uploadSpeed;
-                resultDiv.classList.add('show');
-                btn.disabled = false;
-                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span>' + (isRu ? 'Запустить тест' : 'Start Test') + '</span>';
-            }, 1500);
-        }
+        generateRefLink();
 
         const docs = {
             privacy: `
                 <h2>Политика конфиденциальности</h2>
-                <p>Дата последнего обновления: 1 апреля 2026 года.</p>
-                <h3>1. Какие данные мы собираем</h3>
-                <p>Youniq VPN собирает только ваш Telegram ID для идентификации активной подписки.</p>
-                <h3>2. Какие данные мы НЕ собираем</h3>
-                <p>Мы не ведём логи трафика, не сохраняем историю посещённых сайтов, не отслеживаем DNS-запросы.</p>
-                <h3>3. Передача данных третьим лицам</h3>
-                <p>Youniq VPN не передаёт, не продаёт и не обменивает данные пользователей третьим лицам.</p>
-                <h3>4. Безопасность</h3>
-                <p>Все соединения шифруются с использованием протокола VLESS с технологией XTLS-Reality.</p>
+                <p>Дата последнего обновления: 24 апреля 2026 года.</p>
+                <h3>1. Общие положения</h3>
+                <p>Настоящая Политика конфиденциальности определяет, как сервис Youniq VPN собирает, использует и защищает информацию, полученную от пользователей.</p>
+                <h3>2. Какие данные мы собираем</h3>
+                <p>Youniq VPN собирает только ваш Telegram ID для идентификации активной подписки. Мы не запрашиваем имя, email, номер телефона или любые другие персональные данные. Факт оплаты фиксируется платёжной системой ЮKassa, которая обрабатывает платёжные данные в соответствии со своей политикой конфиденциальности.</p>
+                <h3>3. Какие данные мы НЕ собираем</h3>
+                <p>Мы не ведём логи трафика. Мы не сохраняем историю посещённых сайтов. Мы не отслеживаем DNS-запросы. Мы не записываем временные метки подключения. Мы не храним IP-адреса после завершения сессии. Мы не используем файлы cookie или аналогичные технологии отслеживания.</p>
+                <h3>4. Передача данных третьим лицам</h3>
+                <p>Youniq VPN не передаёт, не продаёт и не обменивает данные пользователей третьим лицам ни при каких обстоятельствах, за исключением случаев, предусмотренных законодательством Российской Федерации.</p>
+                <h3>5. Безопасность</h3>
+                <p>Все соединения шифруются с использованием протокола VLESS с технологией XTLS-Reality. Данные передаются в зашифрованном виде. Мы принимаем разумные меры для защиты информации от несанкционированного доступа.</p>
+                <h3>6. Изменения в политике</h3>
+                <p>Мы оставляем за собой право изменять данную политику. Актуальная версия всегда доступна в этом разделе. Продолжая использовать сервис после изменений, вы соглашаетесь с новой редакцией политики.</p>
             `,
             terms: `
                 <h2>Правила использования</h2>
-                <p>Используя Youniq VPN, вы соглашаетесь со следующими правилами:</p>
+                <p>Используя Youniq VPN, вы соглашаетесь со следующими правилами. Нарушение любого из этих правил может привести к блокировке аккаунта без возврата средств.</p>
                 <h3>1. Запрещённая деятельность</h3>
-                <p>Запрещено: спам, брутфорс, DDoS-атаки, распространение вредоносного ПО, фишинг, мошенничество.</p>
-                <h3>2. Ответственность</h3>
-                <p>Пользователь несёт полную ответственность за свои действия при использовании сервиса.</p>
+                <p>Запрещено использовать сервис для: спама и массовых рассылок; брутфорса и подбора паролей; DDoS-атак и нарушения работы сетей; распространения вредоносного ПО; фишинга и мошенничества; нарушения авторских прав; детской порнографии и любого незаконного контента; любых действий, нарушающих законодательство Российской Федерации и международное право.</p>
+                <h3>2. Ответственность пользователя</h3>
+                <p>Пользователь несёт полную ответственность за свои действия при использовании сервиса. Youniq VPN не несёт ответственности за ущерб, причинённый в результате использования или невозможности использования сервиса. Пользователь обязуется не передавать свои учётные данные третьим лицам.</p>
                 <h3>3. Блокировка аккаунта</h3>
-                <p>При нарушении правил аккаунт блокируется без возврата средств.</p>
+                <p>При нарушении правил использования аккаунт блокируется без предупреждения и без возврата средств. Мы оставляем за собой право отказать в обслуживании любому пользователю без объяснения причин.</p>
+                <h3>4. Изменение правил</h3>
+                <p>Мы оставляем за собой право изменять правила использования в любое время. Актуальная версия всегда доступна в этом разделе. Продолжение использования сервиса означает согласие с новыми правилами.</p>
             `,
             offer: `
                 <h2>Публичная оферта</h2>
-                <p>Настоящий документ является официальным предложением на предоставление услуг доступа к VPN-серверу Youniq VPN.</p>
+                <p>Настоящий документ является официальным предложением (офертой) самозанятого Анфалова Глеба Андреевича (ИНН: 450164957874) на предоставление услуг доступа к VPN-серверу Youniq VPN.</p>
                 <h3>1. Предмет оферты</h3>
-                <p>Исполнитель предоставляет Заказчику доступ к VPN-серверу на условиях выбранного тарифа.</p>
+                <p>Исполнитель предоставляет Заказчику доступ к VPN-серверу на условиях выбранного тарифа. Услуга считается оказанной с момента активации подписки и выдачи ключа доступа. Срок действия подписки указан в описании тарифа.</p>
                 <h3>2. Оплата</h3>
-                <p>Оплата производится в рублях через платёжную систему ЮKassa.</p>
+                <p>Оплата производится в рублях через платёжную систему ЮKassa. Цены указаны на странице тарифов и включают все комиссии. Моментом оплаты считается поступление денежных средств на счёт Исполнителя.</p>
                 <h3>3. Возврат средств</h3>
-                <p>Возврат средств возможен в течение 48 часов с момента оплаты.</p>
-                <h3>4. Контакты</h3>
-                <p>По всем вопросам обращайтесь в Telegram-бота: @youniq_vpn_bot</p>
+                <p>Возврат средств возможен в течение 48 часов с момента оплаты при условии отсутствия нарушений правил использования. Для возврата обратитесь в поддержку через Telegram-бота. После истечения 48 часов возврат не производится. Возврат осуществляется за вычетом комиссии платёжной системы.</p>
+                <h3>4. Срок действия и продление</h3>
+                <p>Подписка активна в течение оплаченного периода с момента активации. По истечении срока доступ автоматически прекращается. Продление подписки производится путём повторной оплаты.</p>
+                <h3>5. Контакты</h3>
+                <p>Исполнитель: Самозанятый Анфалов Глеб Андреевич<br>ИНН: 450164957874<br>По всем вопросам обращайтесь в Telegram-бота поддержки: @youniq_vpn_bot</p>
             `
         };
 
         function showDoc(type) {
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
-
+            
             const modal = document.createElement('div');
             modal.className = 'modal';
             modal.innerHTML = docs[type] + '<button class="close-btn" onclick="this.closest(\'.modal-overlay\').remove()">Закрыть</button>';
-
+            
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
-
+            
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) overlay.remove();
             });
@@ -1035,4 +773,3 @@
     </script>
 </body>
 </html>
-
