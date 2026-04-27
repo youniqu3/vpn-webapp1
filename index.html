@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         body {
             font-family: 'Montserrat', -apple-system, sans-serif;
@@ -43,14 +44,10 @@
             50% { border-color: #2d2350; box-shadow: 0 0 25px rgba(123,92,255,0.06); }
         }
 
-        @keyframes speedPulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 1; }
-        }
-
-        @keyframes progressAnim {
-            from { stroke-dashoffset: 314; }
-            to { stroke-dashoffset: 0; }
+        @keyframes successPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         h1 {
@@ -66,7 +63,6 @@
             animation: fadeUp 0.6s ease-out 0.1s both;
         }
 
-        /* Переключатель языка */
         .lang-switch {
             display: flex; justify-content: flex-end; margin-bottom: 16px; gap: 8px;
             animation: fadeUp 0.6s ease-out 0.05s both;
@@ -78,7 +74,6 @@
         }
         .lang-btn.active { background: #1a1240; color: #9b85ff; border-color: #7b5cff; }
 
-        /* Тарифы */
         .plans { display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 1; }
         
         .plan {
@@ -127,7 +122,6 @@
         }
         .devices span { color: #524a6e; font-size: 11px; font-weight: 600; }
 
-        /* Кнопка */
         button.cta {
             width: 100%; padding: 16px; border: none; border-radius: 16px;
             font-size: 16px; font-weight: 700; font-family: 'Montserrat', sans-serif;
@@ -146,7 +140,6 @@
             background: #0e0e1a; color: #2d2348; cursor: not-allowed; border: 1px solid #13102a;
         }
 
-        /* Проверка скорости */
         .speedtest {
             margin-top: 32px; background: #0c0c16; border: 1px solid #16122a;
             border-radius: 20px; padding: 24px; text-align: center;
@@ -157,9 +150,7 @@
             width: 120px; height: 120px; margin: 0 auto 16px; position: relative;
         }
         .speed-circle svg { transform: rotate(-90deg); }
-        .speed-circle .bg-circle {
-            fill: none; stroke: #1a1240; stroke-width: 8;
-        }
+        .speed-circle .bg-circle { fill: none; stroke: #1a1240; stroke-width: 8; }
         .speed-circle .progress-circle {
             fill: none; stroke: #7b5cff; stroke-width: 8;
             stroke-linecap: round; stroke-dasharray: 314; stroke-dashoffset: 314;
@@ -179,7 +170,6 @@
         .speed-btn:hover { background: #2d2350; border-color: #7b5cff; }
         .speed-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Преимущества */
         .advantages {
             margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
             animation: fadeUp 0.6s ease-out 0.4s both;
@@ -197,7 +187,6 @@
         .advantage h3 { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
         .advantage p { font-size: 10px; color: #524a6e; font-weight: 500; line-height: 1.4; }
 
-        /* Блоки с описанием */
         .description {
             margin-top: 28px; background: #0c0c16; border: 1px solid #16122a;
             border-radius: 20px; padding: 20px; animation: fadeUp 0.6s ease-out 0.45s both;
@@ -205,7 +194,6 @@
         .description h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
         .description p { font-size: 12px; color: #5a5078; line-height: 1.7; font-weight: 500; }
 
-        /* Ссылки */
         .links {
             margin-top: 12px; display: flex; flex-wrap: wrap; gap: 12px;
             animation: fadeUp 0.6s ease-out 0.5s both;
@@ -222,7 +210,6 @@
             animation: fadeUp 0.6s ease-out 0.55s both;
         }
 
-        /* Модалка */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.88); z-index: 999;
@@ -266,6 +253,11 @@
         }
         .faq-arrow.rotated { transform: rotate(45deg); }
         .faq-answer.open { max-height: 200px !important; }
+        
+        .success-icon {
+            font-size: 48px; text-align: center;
+            animation: successPop 0.5s ease;
+        }
     </style>
 </head>
 <body>
@@ -275,13 +267,11 @@
         <h1>Youniq VPN</h1>
         <p class="subtitle">Privacy Reimagined</p>
 
-        <!-- Переключатель языка -->
         <div class="lang-switch">
             <button class="lang-btn active" onclick="switchLang('ru')">RU</button>
             <button class="lang-btn" onclick="switchLang('en')">EN</button>
         </div>
 
-        <!-- Тарифы -->
         <div class="plans">
             <div class="plan" data-plan="1month" data-price="120">
                 <div class="badge">STARTER</div>
@@ -306,7 +296,6 @@
 
         <button class="cta" id="payBtn" disabled data-ru="Выберите тариф" data-en="Select a plan">Выберите тариф</button>
 
-        <!-- Проверка скорости -->
         <div class="speedtest">
             <h3 data-ru="Проверка скорости" data-en="Speed Test">Проверка скорости</h3>
             <div class="speed-circle">
@@ -320,7 +309,6 @@
             <button class="speed-btn" id="speedBtn" onclick="startSpeedTest()" data-ru="Запустить тест" data-en="Start Test">Запустить тест</button>
         </div>
 
-        <!-- Преимущества -->
         <div class="advantages">
             <div class="advantage">
                 <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
@@ -344,15 +332,13 @@
             </div>
         </div>
 
-        <!-- О сервисе -->
         <div class="description">
             <h3 data-ru="О сервисе" data-en="About">О сервисе</h3>
-            <p data-ru="Технология раздельного туннелирования позволяет гибко настраивать маршрутизацию трафика. Вы сами выбираете, какие приложения используют защищённый канал, а какие работают в обычном режиме.">Технология раздельного туннелирования позволяет гибко настраивать маршрутизацию трафика. Вы сами выбираете, какие приложения используют защищённый канал, а какие работают в обычном режиме.</p>
+            <p data-ru="Технология раздельного туннелирования позволяет гибко настраивать маршрутизацию трафика. Вы сами выбираете, какие приложения используют защищённый канал, а какие работают в обычном режиме." data-en="Split tunneling technology allows flexible traffic routing. You choose which apps use the secure channel and which work in normal mode.">Технология раздельного туннелирования позволяет гибко настраивать маршрутизацию трафика. Вы сами выбираете, какие приложения используют защищённый канал, а какие работают в обычном режиме.</p>
         </div>
-        <!-- FAQ -->
+
         <div class="description">
             <h3 data-ru="Частые вопросы" data-en="FAQ">Частые вопросы</h3>
-            
             <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="Как работает разделение трафика?" data-en="How does traffic splitting work?">Как работает разделение трафика?</p>
@@ -362,7 +348,6 @@
                     <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Вы можете гибко настроить, какие приложения используют защищённый канал, а какие работают в обычном режиме. Это делается в настройках клиента в разделе Routing." data-en="You can flexibly configure which apps use the secure channel and which work in normal mode. This is done in the client settings under Routing.">Вы можете гибко настроить, какие приложения используют защищённый канал, а какие работают в обычном режиме. Это делается в настройках клиента в разделе Routing.</p>
                 </div>
             </div>
-            
             <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="На каких устройствах работает?" data-en="What devices are supported?">На каких устройствах работает?</p>
@@ -372,7 +357,6 @@
                     <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Android (V2RayNG из RuStore), iOS (Streisand из App Store), Windows и macOS (NekoBox). На одном ключе — одно устройство." data-en="Android (V2RayNG from RuStore), iOS (Streisand from App Store), Windows and macOS (NekoBox). One key = one device.">Android (V2RayNG из RuStore), iOS (Streisand из App Store), Windows и macOS (NekoBox). На одном ключе — одно устройство.</p>
                 </div>
             </div>
-            
             <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="Что если ключ заблокируют?" data-en="What if the key gets blocked?">Что если ключ заблокируют?</p>
@@ -382,19 +366,17 @@
                     <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Просто откройте магазин заново — ключ обновится автоматически. Вы можете обновлять ключ неограниченное количество раз в течение оплаченного периода." data-en="Just open the store again — the key will refresh automatically. You can update the key unlimited times during the paid period.">Просто откройте магазин заново — ключ обновится автоматически. Вы можете обновлять ключ неограниченное количество раз в течение оплаченного периода.</p>
                 </div>
             </div>
-            
             <div class="faq-item" style="border-bottom:1px solid #16122a;padding:12px 0;cursor:pointer;" onclick="this.querySelector('.faq-answer').classList.toggle('open'); this.querySelector('.faq-arrow').classList.toggle('rotated')">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <p style="font-weight:600;font-size:13px;color:#c4b8ff;margin:0;" data-ru="Как оплатить?" data-en="How to pay?">Как оплатить?</p>
                     <span class="faq-arrow" style="color:#524a6e;transition:0.3s;font-size:18px;">+</span>
                 </div>
                 <div class="faq-answer" style="max-height:0;overflow:hidden;transition:0.3s;">
-                    <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Оплата через ЮKassa — карты РФ, СБП, ЮMoney. Выберите тариф, нажмите «Оплатить», и следуйте инструкциям." data-en="Payment via YooKassa — Russian cards, SBP, YooMoney. Select a plan, press «Pay», and follow instructions.">Оплата через ЮKassa — карты РФ, СБП, ЮMoney. Выберите тариф, нажмите «Оплатить», и следуйте инструкциям.</p>
+                    <p style="margin-top:8px;font-size:12px;color:#5a5078;" data-ru="Выберите тариф, нажмите «Оплатить». Откроется окно оплаты — введите данные карты или выберите способ оплаты. После успешной оплаты ключ появится автоматически." data-en="Select a plan, press «Pay». A payment window will open — enter your card details or choose a payment method. After successful payment, the key will appear automatically.">Выберите тариф, нажмите «Оплатить». Откроется окно оплаты — введите данные карты или выберите способ оплаты. После успешной оплаты ключ появится автоматически.</p>
                 </div>
             </div>
         </div>
         
-        <!-- Реферальная программа -->
         <div class="description">
             <h3 data-ru="Реферальная программа" data-en="Referral Program">Реферальная программа</h3>
             <p data-ru="Пригласите друга — получите скидку 10% на следующую покупку после его первой оплаты." data-en="Invite a friend — get 10% off your next purchase after their first payment.">Пригласите друга — получите скидку 10% на следующую покупку после его первой оплаты.</p>
@@ -407,7 +389,6 @@
             </div>
         </div>
 
-        <!-- Реквизиты -->
         <div class="description">
             <h3 data-ru="Реквизиты" data-en="Legal Info">Реквизиты</h3>
             <p>Самозанятый: Анфалов Глеб Андреевич</p>
@@ -415,7 +396,6 @@
             <p>Ссылка на бота: https://t.me/youniq_vpn_bot</p>
         </div>
 
-        <!-- Документы -->
         <div class="links">
             <a onclick="showDoc('privacy')" data-ru="Политика конфиденциальности" data-en="Privacy Policy">Политика конфиденциальности</a>
             <a onclick="showDoc('terms')" data-ru="Правила использования" data-en="Terms of Use">Правила использования</a>
@@ -436,12 +416,10 @@
         let currentLang = 'ru';
         let speedTestRunning = false;
 
-        // Переключение языка
         function switchLang(lang) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             document.querySelector(`.lang-btn[onclick="switchLang('${lang}')"]`).classList.add('active');
-            
             document.querySelectorAll('[data-ru][data-en]').forEach(el => {
                 const text = el.getAttribute(`data-${lang}`);
                 if (text) {
@@ -450,15 +428,11 @@
                     else el.textContent = text;
                 }
             });
-            
-            // Обновляем кнопку оплаты
             if (!selectedPlan) {
                 btn.textContent = lang === 'ru' ? 'Выберите тариф' : 'Select a plan';
             } else {
                 btn.textContent = `${lang === 'ru' ? 'Оплатить' : 'Pay'} ${selectedPlan.price} RUB`;
             }
-            
-            // Обновляем статус спидтеста
             const status = document.getElementById('speedStatus');
             if (!speedTestRunning) {
                 status.textContent = lang === 'ru' ? 'Нажмите кнопку для проверки' : 'Press button to test';
@@ -466,15 +440,11 @@
             document.getElementById('speedBtn').textContent = lang === 'ru' ? 'Запустить тест' : 'Start Test';
         }
 
-        // Выбор тарифа
         document.querySelectorAll('.plan').forEach(plan => {
             plan.addEventListener('click', () => {
                 document.querySelectorAll('.plan').forEach(p => p.classList.remove('active'));
                 plan.classList.add('active');
-                selectedPlan = {
-                    plan: plan.dataset.plan,
-                    price: plan.dataset.price
-                };
+                selectedPlan = { plan: plan.dataset.plan, price: plan.dataset.price };
                 btn.disabled = false;
                 btn.textContent = `${currentLang === 'ru' ? 'Оплатить' : 'Pay'} ${selectedPlan.price} RUB`;
             });
@@ -482,15 +452,14 @@
 
         btn.addEventListener('click', () => {
             if (!selectedPlan) return;
-            tg.sendData(JSON.stringify(selectedPlan));
-            // НЕ закрываем WebApp — ждём
+            showPaymentModal(selectedPlan);
         });
 
-        // Модалка с ключом
-        function showKeyModal(plan) {
+        function showPaymentModal(plan) {
+            const isRu = currentLang === 'ru';
+            const planName = plan.plan === '1month' ? (isRu ? '1 месяц' : '1 Month') : (isRu ? '3 месяца' : '3 Months');
             const days = plan.plan === '1month' ? 30 : 90;
             const key = generateKey();
-            const isRu = currentLang === 'ru';
             
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
@@ -498,56 +467,57 @@
             const modal = document.createElement('div');
             modal.className = 'modal';
             modal.innerHTML = `
-                <h2>${isRu ? 'Доступ активирован' : 'Access Activated'}</h2>
-                <p>${isRu ? 'Тариф' : 'Plan'}: ${plan.plan === '1month' ? (isRu ? '1 месяц' : '1 Month') : (isRu ? '3 месяца' : '3 Months')} &middot; ${plan.price} RUB</p>
-                
-                <h3>${isRu ? 'Ваш ключ доступа' : 'Your Access Key'}</h3>
-                <div class="key-box">
-                    <button class="copy-btn" onclick="copyKey('${key}')">${isRu ? 'Копировать' : 'Copy'}</button>
-                    ${key}
+                <div id="paymentContent">
+                    <h2>${isRu ? 'Оплата' : 'Payment'}</h2>
+                    <p>${planName} &middot; ${plan.price} RUB</p>
+                    <div style="background:#0a0a14;border-radius:14px;padding:20px;text-align:center;margin:16px 0;">
+                        <div id="paymentSpinner" style="width:40px;height:40px;border:3px solid #1a1240;border-top-color:#7b5cff;border-radius:50%;margin:0 auto;animation:spin 1s linear infinite;"></div>
+                        <p style="margin-top:12px;color:#b49dff;font-weight:600;font-size:14px;">${isRu ? 'Перенаправляем на оплату...' : 'Redirecting to payment...'}</p>
+                    </div>
+                    <button id="payExternalBtn" class="close-btn" onclick="tg.openLink('https://yookassa.ru/my/payment')">${isRu ? 'Оплатить через ЮKassa' : 'Pay via YooKassa'}</button>
+                    <button class="close-btn" style="background:#1a1240;" onclick="simulatePayment('${plan.plan}', '${plan.price}', '${planName}', ${days})">${isRu ? 'Симуляция оплаты' : 'Simulate payment'}</button>
                 </div>
-                
-                <h3>${isRu ? 'Инструкция по настройке' : 'Setup Instructions'}</h3>
-                
-                <div class="step">
-                    <div class="step-num">1</div>
-                    <div><p><b>${isRu ? 'Скачайте приложение' : 'Download the app'}</b></p>
-                    <p>${isRu ? 'Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox' : 'Android: V2RayNG (RuStore)<br>iOS: Streisand (App Store)<br>Windows/Mac: NekoBox'}</p></div>
+                <div id="successContent" style="display:none;">
+                    <div class="success-icon">&#10003;</div>
+                    <h2 style="text-align:center;color:#4ade80;">${isRu ? 'Оплачено!' : 'Paid!'}</h2>
+                    <p style="text-align:center;">${planName} &middot; ${plan.price} RUB</p>
+                    
+                    <h3>${isRu ? 'Ваш ключ доступа' : 'Access Key'}</h3>
+                    <div class="key-box">
+                        <button class="copy-btn" onclick="copyKey('${key}')">${isRu ? 'Копировать' : 'Copy'}</button>
+                        ${key}
+                    </div>
+                    
+                    <h3>${isRu ? 'Инструкция' : 'Instructions'}</h3>
+                    <div class="step"><div class="step-num">1</div><div><p>${isRu ? 'Скачайте V2RayNG / Streisand / NekoBox' : 'Download V2RayNG / Streisand / NekoBox'}</p></div></div>
+                    <div class="step"><div class="step-num">2</div><div><p>${isRu ? 'Импортируйте ключ' : 'Import the key'}</p></div></div>
+                    <div class="step"><div class="step-num">3</div><div><p>${isRu ? 'Включите Split Tunneling в настройках' : 'Enable Split Tunneling in settings'}</p></div></div>
+                    <div class="step"><div class="step-num">4</div><div><p>${isRu ? 'Подключитесь' : 'Connect'}</p></div></div>
+                    
+                    <p style="margin-top:14px;color:#524a6e;font-size:11px;text-align:center;">
+                        ${isRu ? 'Срок' : 'Duration'}: ${days} ${isRu ? 'дней' : 'days'}
+                    </p>
+                    <button class="close-btn" onclick="tg.close()">${isRu ? 'Закрыть' : 'Close'}</button>
                 </div>
-                
-                <div class="step">
-                    <div class="step-num">2</div>
-                    <div><p><b>${isRu ? 'Импортируйте ключ' : 'Import the key'}</b></p>
-                    <p>${isRu ? 'Скопируйте ключ и вставьте в приложение' : 'Copy the key and paste into the app'}</p></div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-num">3</div>
-                    <div><p><b>${isRu ? 'Включите Split Tunneling' : 'Enable Split Tunneling'}</b></p>
-                    <p>${isRu ? 'V2RayNG: Настройки → Routing → Bypass LAN and mainland<br>Streisand: Настройки → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia' : 'V2RayNG: Settings → Routing → Bypass LAN and mainland<br>Streisand: Settings → Bypass Russia<br>NekoBox: Route Settings → Bypass Russia'}</p></div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-num">4</div>
-                    <div><p><b>${isRu ? 'Подключитесь' : 'Connect'}</b></p>
-                    <p>${isRu ? 'Нажмите кнопку подключения. Выбранные приложения пойдут через защищённый канал.' : 'Press connect. Selected apps will go through the secure channel.'}</p>
-                </div>
-                
-                <p style="margin-top:14px;color:#524a6e;font-size:11px;">
-                    ${isRu ? 'Срок' : 'Duration'}: ${days} ${isRu ? 'дней' : 'days'} &middot; ${isRu ? 'Устройств' : 'Devices'}: 1 &middot; ${isRu ? 'Трафик: безлимитный' : 'Traffic: unlimited'}
-                </p>
-                
-                <button class="close-btn" onclick="tg.close()">${isRu ? 'Закрыть' : 'Close'}</button>
             `;
             
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
+            
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) overlay.remove();
+            });
+        }
+
+        function simulatePayment(plan, price, planName, days) {
+            document.getElementById('paymentContent').style.display = 'none';
+            document.getElementById('successContent').style.display = 'block';
         }
 
         function generateKey() {
             const uuid = crypto.randomUUID();
             const server = "server.youniq-vpn.ru";
-            return `vless://${uuid}@${server}:443?type=tcp&security=reality&pbk=ПУБЛИЧНЫЙ_КЛЮЧ_СЕРВЕРА&fp=chrome&sni=www.yahoo.com&sid=abcdef&encryption=none#Youniq-VPN`;
+            return `vless://${uuid}@${server}:443?type=tcp&security=reality&pbk=ПУБЛИЧНЫЙ_КЛЮЧ&fp=chrome&sni=www.yahoo.com&sid=abcdef&encryption=none#Youniq-VPN`;
         }
 
         function copyKey(key) {
@@ -558,49 +528,27 @@
             });
         }
 
-        // Проверка скорости
         function startSpeedTest() {
             if (speedTestRunning) return;
             speedTestRunning = true;
-            
-            const btn = document.getElementById('speedBtn');
+            const btnEl = document.getElementById('speedBtn');
             const status = document.getElementById('speedStatus');
             const speedValue = document.getElementById('speedValue');
             const circle = document.getElementById('progressCircle');
-            
-            btn.disabled = true;
-            btn.textContent = currentLang === 'ru' ? 'Тестирование...' : 'Testing...';
+            btnEl.disabled = true;
+            btnEl.textContent = currentLang === 'ru' ? 'Тестирование...' : 'Testing...';
             status.textContent = currentLang === 'ru' ? 'Подключение к серверу...' : 'Connecting to server...';
-            
-            const steps = [
-                { text: currentLang === 'ru' ? 'Измерение пинга...' : 'Measuring ping...', delay: 800 },
-                { text: currentLang === 'ru' ? 'Загрузка данных...' : 'Downloading data...', delay: 1200 },
-                { text: currentLang === 'ru' ? 'Обработка результатов...' : 'Processing results...', delay: 600 },
-            ];
-            
-            let stepIndex = 0;
-            function nextStep() {
-                if (stepIndex < steps.length) {
-                    status.textContent = steps[stepIndex].text;
-                    stepIndex++;
-                    setTimeout(nextStep, steps[stepIndex - 1].delay);
-                } else {
-                    const speed = (Math.random() * 400 + 100).toFixed(0);
-                    const circumference = 314;
-                    const offset = circumference - (speed / 500) * circumference;
-                    
-                    circle.style.strokeDashoffset = offset;
-                    speedValue.innerHTML = `${speed}<span>Mbps</span>`;
-                    status.textContent = (currentLang === 'ru' ? 'Скорость: ' : 'Speed: ') + speed + ' Mbps';
-                    btn.textContent = currentLang === 'ru' ? 'Запустить тест' : 'Start Test';
-                    btn.disabled = false;
-                    speedTestRunning = false;
-                }
-            }
-            nextStep();
+            setTimeout(() => {
+                const speed = (Math.random() * 400 + 100).toFixed(0);
+                circle.style.strokeDashoffset = 314 - (speed / 500) * 314;
+                speedValue.innerHTML = `${speed}<span>Mbps</span>`;
+                status.textContent = (currentLang === 'ru' ? 'Скорость: ' : 'Speed: ') + speed + ' Mbps';
+                btnEl.textContent = currentLang === 'ru' ? 'Запустить тест' : 'Start Test';
+                btnEl.disabled = false;
+                speedTestRunning = false;
+            }, 2000);
         }
 
-        // Реферальная ссылка
         function generateRefLink() {
             const userId = tg.initDataUnsafe?.user?.id || 'unknown';
             const refCode = btoa(String(userId)).substring(0, 8);
@@ -610,13 +558,12 @@
         function copyRefLink() {
             const input = document.getElementById('refLink');
             navigator.clipboard.writeText(input.value).then(() => {
-                tg.showPopup({ title: 'OK', message: currentLang === 'ru' ? 'Реферальная ссылка скопирована!' : 'Referral link copied!' });
+                tg.showPopup({ title: 'OK', message: currentLang === 'ru' ? 'Ссылка скопирована!' : 'Link copied!' });
             });
         }
 
         generateRefLink();
 
-        // Документы
         const docs = {
             privacy: {
                 ru: `
@@ -695,21 +642,13 @@
         function showDoc(type) {
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
-            
             const modal = document.createElement('div');
             modal.className = 'modal';
-            const content = docs[type][currentLang] || docs[type]['ru'];
-            modal.innerHTML = content + `<button class="close-btn" onclick="this.closest('.modal-overlay').remove()">${currentLang === 'ru' ? 'Закрыть' : 'Close'}</button>`;
-            
+            modal.innerHTML = docs[type][currentLang] + `<button class="close-btn" onclick="this.closest('.modal-overlay').remove()">${currentLang === 'ru' ? 'Закрыть' : 'Close'}</button>`;
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
-            
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) overlay.remove();
-            });
+            overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
         }
     </script>
 </body>
 </html>
-
-
