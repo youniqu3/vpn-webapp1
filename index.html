@@ -482,10 +482,8 @@
 
         btn.addEventListener('click', () => {
             if (!selectedPlan) return;
-            const plan = selectedPlan.plan === '1month' ? '1month' : '3month';
-            const price = selectedPlan.price;
-            tg.openTelegramLink(`https://t.me/youniq_vpn_bot?start=pay_${plan}_${price}`);
-            tg.close();
+            tg.sendData(JSON.stringify(selectedPlan));
+            // НЕ закрываем WebApp — ждём
         });
 
         // Модалка с ключом
