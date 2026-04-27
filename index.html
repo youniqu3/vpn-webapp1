@@ -480,10 +480,12 @@
             });
         });
 
-                btn.addEventListener('click', () => {
+        btn.addEventListener('click', () => {
             if (!selectedPlan) return;
+            // Отправляем данные боту
             tg.sendData(JSON.stringify(selectedPlan));
-            tg.close();
+            // Ждём немного и закрываем
+            setTimeout(() => tg.close(), 500);
         });
 
         // Модалка с ключом
