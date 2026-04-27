@@ -480,9 +480,10 @@
             });
         });
 
-        btn.addEventListener('click', () => {
+                btn.addEventListener('click', () => {
             if (!selectedPlan) return;
-            showKeyModal(selectedPlan);
+            tg.sendData(JSON.stringify(selectedPlan));
+            tg.close();
         });
 
         // Модалка с ключом
